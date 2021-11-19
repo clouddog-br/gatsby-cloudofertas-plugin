@@ -1,0 +1,17 @@
+{
+  "name": "gatsby-plugin-cloudofertas",
+  "version": "1.0.0",
+  "description": "A simple scrappy to get posts",
+  "main": "Form/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.3"
+  }
+}
