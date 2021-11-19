@@ -305,7 +305,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       feedback_notification_template: String
       send_feedback: Boolean
       forward_notification_template: String
-      data: [CloudOfertasFormFields]
+      formTypeField: [CloudOfertasFormFields]
     }
 
     type CloudOfertasFormFields implements Node {
@@ -315,7 +315,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       required: Boolean
       style: String
       type: String
-      list:[CloudOfertasFormLovData]
+      formLov:[CloudOfertasFormLovData]
     }
 
     type CloudOfertasFormLovData implements Node {
