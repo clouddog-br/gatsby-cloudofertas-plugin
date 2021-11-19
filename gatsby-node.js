@@ -63,7 +63,7 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
     }
     if (data.forms.length > 0) {
       data.forms.forEach(form => {
-        createNodeHandler(createNode, createNodeId, createContentDigest, form, 'FormFields')
+        createNodeHandler(createNode, createNodeId, createContentDigest, form, 'CloudOfertasForm')
       })
     }
   } catch (err) {
@@ -300,6 +300,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type CloudOfertasForm implements Node {
+      name: String
       forward_list: String
       feedback_notification_template: String
       send_feedback: Boolean
