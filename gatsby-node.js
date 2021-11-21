@@ -315,7 +315,13 @@ exports.createSchemaCustomization = ({ actions }) => {
       required: Boolean
       style: String
       type: String
-      formLov:[CloudOfertasFormLovData]
+      formLov:CloudOfertasFormLov
+    }
+
+    type CloudOfertasFormLov implements Node {
+      name: String
+      descricao: String
+      formLovData: [CloudOfertasFormLovData!]
     }
 
     type CloudOfertasFormLovData implements Node {
