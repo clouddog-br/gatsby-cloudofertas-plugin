@@ -306,6 +306,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type CloudOfertasForm implements Node {
+      id: String
       name: String
       forward_list: String
       feedback_notification_template: String
