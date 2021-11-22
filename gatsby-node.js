@@ -93,46 +93,51 @@ exports.onCreateNode = async ({
   node
 }) => {
   if (node.internal.type === 'CloudOfertasBanner') {
-    const banner = await createRemoteFileNode({
-      url: node.banner,
-      getCache,
-      createNode,
-      createNodeId,
-      parentNodeId: node.id
-    })
-    const mobileBanner = await createRemoteFileNode({
-      url: node.mobileBanner,
-      getCache,
-      createNode,
-      createNodeId,
-      parentNodeId: node.id
-    })
-    if (banner && mobileBanner) {
+    let banner, mobileBanner
+    if (node.banner) {
+      banner = await createRemoteFileNode({
+        url: node.banner,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
       node.banner = banner.id
+    }
+    if (node.mobileBanner) {
+      mobileBanner = await createRemoteFileNode({
+        url: node.mobileBanner,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
       node.mobileBanner = mobileBanner.id
     }
   }
   if (node.internal.type === 'CloudOfertasLoja') {
-    const loja = await createRemoteFileNode({
-      url: node.image,
-      getCache,
-      createNode,
-      createNodeId,
-      parentNodeId: node.id
-    })
-    if (loja) {
+    let loja
+    if (node.image) {
+      loja = await createRemoteFileNode({
+        url: node.image,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
       node.image = loja.id
     }
   }
   if (node.internal.type === 'CloudOfertasCategoria') {
-    const categoria = await createRemoteFileNode({
-      url: node.icon,
-      getCache,
-      createNode,
-      createNodeId,
-      parentNodeId: node.id
-    })
-    if (categoria) {
+    let categoria
+    if (node.icon) {
+      categoria = await createRemoteFileNode({
+        url: node.icon,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
       node.icon = categoria.id
     }
   }
@@ -277,6 +282,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       startDate: Date
       finishDate: Date
       order: Int
+      tag: String
       ownBrand: Boolean
       specialOffers: Boolean
     }
