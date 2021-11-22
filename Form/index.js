@@ -8,6 +8,7 @@ import Select from './select'
 import State from './state'
 import City from './city'
 import Phone from './phone'
+import TextArea from './textarea'
 
 const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle, btnStyle }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
@@ -77,7 +78,16 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
               return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
                   <Phone
-                    districts={districts}
+                    field={field}
+                    register={register}
+                    errors={errors}
+                  />
+                </div>
+              )
+            case 'textarea':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                  <TextArea
                     field={field}s
                     register={register}
                     errors={errors}
