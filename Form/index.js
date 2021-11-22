@@ -88,7 +88,7 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
               return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
                   <TextArea
-                    field={field}s
+                    field={field}
                     register={register}
                     errors={errors}
                   />
