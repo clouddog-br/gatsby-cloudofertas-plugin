@@ -17,10 +17,13 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
 
   const sortValues = (object, field) => (object.sort((a, b) => (a[field] > b[field]) ? 1 : ((b[field] > a[field]) ? -1 : 0)))
 
-  useEffect(async () => {
-    await fetch(`${process.env.IBGE}/estados`)
+  useEffect(() => {
+    async function getEstados() {
+      await fetch(`${process.env.IBGE}/estados`)
       .then(res => res.json())
       .then(res => setUfs(sortValues(res, 'sigla')))
+    }
+    getEstados()
   }, [])
 
   const handleStateSelected = (event) => {
