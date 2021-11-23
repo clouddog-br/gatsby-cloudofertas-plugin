@@ -10,7 +10,7 @@ import City from './city'
 import Phone from './phone'
 import TextArea from './textarea'
 
-const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle, btnStyle, placeholder }) => {
+const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle, btnStyle, placeholder, errorLabel }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
 
   const [ufs, setUfs] = useState([])
@@ -105,6 +105,7 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
                     register={register}
                     errors={errors}
                     placeholder={placeholder}
+                    errorLabel={errorLabel}
                   />
                 </div>
               )
