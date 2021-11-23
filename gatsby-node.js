@@ -63,7 +63,6 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
     }
     if (data.forms.length > 0) {
       data.forms.forEach(form => {
-        console.log(form)
         createNodeHandler(createNode, createNodeId, createContentDigest, form, 'CloudOfertasForm')
       })
     }
