@@ -9,6 +9,7 @@ import State from './state'
 import City from './city'
 import Phone from './phone'
 import TextArea from './textarea'
+import Checkbox from './checkbox'
 
 const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle, btnStyle, placeholder, errorLabel }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
@@ -96,6 +97,18 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
                     field={field}
                     register={register}
                     errors={errors}
+                  />
+                </div>
+              )
+            case 'checkbox':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                  <Checkbox
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
                   />
                 </div>
               )
