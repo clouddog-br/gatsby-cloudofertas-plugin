@@ -334,6 +334,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type CloudOfertasFormLovData implements Node {
       id: String
       value: String
+      createdDate: Date
     }
    `
   createTypes(typeDefs)

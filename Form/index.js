@@ -43,7 +43,6 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
         {formData.map((field, index) => {
           switch (field.type) {
             case 'select':
-              console.log(field)
               return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
                   <Select
