@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Select = ({ field, list, register, errors }) => {
+  list.sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate))
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
