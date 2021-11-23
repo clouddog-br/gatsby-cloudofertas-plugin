@@ -63,6 +63,7 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
     }
     if (data.forms.length > 0) {
       data.forms.forEach(form => {
+        console.log(form)
         createNodeHandler(createNode, createNodeId, createContentDigest, form, 'CloudOfertasForm')
       })
     }
@@ -74,7 +75,6 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
 function createNodeHandler (createNode, createNodeId, createContentDigest, item, type) {
   createNode({
     ...item,
-    id: createNodeId(`${type}-${item.id}`),
     parent: null,
     children: [],
     internal: {
@@ -316,6 +316,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type CloudOfertasFormFields implements Node {
+      id: String
       name: String
       label: String
       length: Int
@@ -326,6 +327,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type CloudOfertasFormLov implements Node {
+      id: String
       name: String
       descricao: String
       formLovData: [CloudOfertasFormLovData!]
