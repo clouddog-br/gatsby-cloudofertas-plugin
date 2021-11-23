@@ -16,4 +16,4 @@ const Checkbox = ({ field, register, errors, errorLabel }) => {
   )
 }
 
-export default Field
+export default Checkbox
