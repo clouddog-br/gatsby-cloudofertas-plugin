@@ -84,6 +84,8 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
                     field={field}
                     register={register}
                     errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
                   />
                 </div>
               )

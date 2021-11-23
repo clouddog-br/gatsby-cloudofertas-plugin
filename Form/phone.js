@@ -1,7 +1,7 @@
 import React from 'react'
 import InputMask from 'react-input-mask'
 
-const Phone = ({ field, register, errors }) => {
+const Phone = ({ field, register, errors, placeholder }) => {
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
@@ -11,6 +11,7 @@ const Phone = ({ field, register, errors }) => {
         maskChar={null}
         id={field.name}
         name={field.name}
+        placeholder={placeholder && `${field.label}`}
         type='text'
         className={`${errors[field.name] ? 'error' : ''}`}
         {...register(field.name, { required: field.required, maxLength: field.length !== null && field.length })}
