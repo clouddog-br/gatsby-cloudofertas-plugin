@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Field = ({ field, register, errors, placeholder, errorLabel, label}) => {
+const Field = ({ field, register, errors, placeholder, errorLabel }) => {
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
-      {errorLabel = 'top' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
+      {errorLabel === 'top' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
       <input
         id={field.name}
         name={field.name}
