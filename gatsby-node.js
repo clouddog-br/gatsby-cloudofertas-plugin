@@ -43,27 +43,27 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
 
     if (data.banners.length > 0) {
       data.banners.forEach(banner => {
-        createNodeHandler(createNode, createNodeId, createContentDigest, banner, 'CloudOfertasBanner')
+        createNodeHandler(createNode, createContentDigest, banner, 'CloudOfertasBanner')
       })
     }
     if (data.lojas.length > 0) {
       data.lojas.forEach(loja => {
-        createNodeHandler(createNode, createNodeId, createContentDigest, loja, 'CloudOfertasLoja')
+        createNodeHandler(createNode, createContentDigest, loja, 'CloudOfertasLoja')
       })
     }
     if (data.tabloides.length > 0) {
       data.tabloides.forEach(tabloide => {
-        createNodeHandler(createNode, createNodeId, createContentDigest, tabloide, 'CloudOfertasTabloide')
+        createNodeHandler(createNode, createContentDigest, tabloide, 'CloudOfertasTabloide')
       })
     }
     if (data.categories.length > 0) {
       data.categories.forEach(categoria => {
-        createNodeHandler(createNode, createNodeId, createContentDigest, categoria, 'CloudOfertasCategoria')
+        createNodeHandler(createNode, createContentDigest, categoria, 'CloudOfertasCategoria')
       })
     }
     if (data.forms.length > 0) {
       data.forms.forEach(form => {
-        createNodeHandler(createNode, createNodeId, createContentDigest, form, 'CloudOfertasForm')
+        createNodeHandler(createNode, createContentDigest, form, 'CloudOfertasForm')
       })
     }
   } catch (err) {
@@ -71,10 +71,9 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
   }
 }
 
-function createNodeHandler (createNode, createNodeId, createContentDigest, item, type) {
+function createNodeHandler (createNode, createContentDigest, item, type) {
   createNode({
     ...item,
-    id: createNodeId(`${type}-${item.id}`),
     parent: null,
     children: [],
     internal: {
@@ -316,6 +315,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type CloudOfertasFormFields implements Node {
+      id: String
       name: String
       label: String
       length: Int
@@ -326,6 +326,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type CloudOfertasFormLov implements Node {
+      id: String
       name: String
       descricao: String
       formLovData: [CloudOfertasFormLovData!]

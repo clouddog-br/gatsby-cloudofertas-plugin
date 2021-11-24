@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Field = ({ field, register, errors, placeholder, errorLabel }) => {
+const Field = ({ field, register, errors, placeholder, errorLabel, label}) => {
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
