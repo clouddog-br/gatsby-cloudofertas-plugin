@@ -1,5 +1,5 @@
 import React from 'react'
-
+import parse from 'html-react-parser';
 const Checkbox = ({ field, register, errors, errorLabel }) => {
   return (
     <>
@@ -12,7 +12,7 @@ const Checkbox = ({ field, register, errors, errorLabel }) => {
         className={`${errors[field.name] ? 'error' : ''}`}
         {...register(field.name, { required: field.required })}
         />
-        <label htmlFor={field.name} className="form-check-label">{field.label}</label>
+        <label htmlFor={field.name} className="form-check-label">{parse(field.label)}</label>
     </div>
     </>
   )
