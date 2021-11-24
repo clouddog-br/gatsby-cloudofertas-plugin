@@ -11,7 +11,7 @@ import Phone from './phone'
 import TextArea from './textarea'
 import Checkbox from './checkbox'
 
-const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle, btnStyle, placeholder, errorLabel }) => {
+const RenderForm = ({ onSubmit, formData, formStyle, inputStyle, btnName, btnContainerStyle, btnStyle, placeholder, errorLabel }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
 
   const [ufs, setUfs] = useState([])
@@ -38,7 +38,7 @@ const RenderForm = ({ onSubmit, formData, inputStyle, btnName, btnContainerStyle
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='container'>
+    <form onSubmit={handleSubmit(onSubmit)} className={`container ${formStyle}`}>
       <div className='row'>
         <h2>{formData.label}</h2>
         {formData.map((field, index) => {
