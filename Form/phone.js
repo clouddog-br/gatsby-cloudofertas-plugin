@@ -5,7 +5,7 @@ const Phone = ({ field, register, errors, placeholder, errorLabel }) => {
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
-      {errorLabel = 'top' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
+     {errorLabel === 'top' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
       <InputMask
         mask={'(99) 9999-99999'}
         maskChar={null}
