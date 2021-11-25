@@ -52,7 +52,7 @@ const RenderForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={`${containerStyle}`}>
-      <div className={rowStyle}>
+      <div className={`${rowStyle}`}>
         <h2>{formData.label}</h2>
         {formData.map((field, index) => {
           switch (field.type) {
