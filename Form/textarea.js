@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextArea = ({ field, register, errors }) => {
+const TextArea = ({ field, register, errors, placeholder }) => {
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
