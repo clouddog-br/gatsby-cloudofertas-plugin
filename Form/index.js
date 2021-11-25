@@ -57,7 +57,7 @@ const RenderForm = ({
           switch (field.type) {
             case 'select':
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Select
                     field={field}
                     list={field.formLov.formLovData}
@@ -68,7 +68,7 @@ const RenderForm = ({
               )
             case 'state':
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <State
                     ufs={ufs}
                     field={field}
@@ -80,7 +80,7 @@ const RenderForm = ({
               )
             case 'city':
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <City
                     districts={districts}
                     field={field}s
@@ -91,7 +91,7 @@ const RenderForm = ({
               )
             case 'phone':
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Phone
                     field={field}
                     register={register}
@@ -103,7 +103,7 @@ const RenderForm = ({
               )
             case 'textarea':
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <TextArea
                     field={field}
                     register={register}
@@ -113,7 +113,7 @@ const RenderForm = ({
               )
             case 'checkbox':
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Checkbox
                     field={field}
                     register={register}
@@ -126,7 +126,7 @@ const RenderForm = ({
             case 'input':
             default:
               return (
-                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style} mt-4`}>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Field
                     field={field}
                     register={register}
