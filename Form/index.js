@@ -109,6 +109,7 @@ const RenderForm = ({
                     field={field}
                     register={register}
                     errors={errors}
+                    placeholder={placeholder}
                   />
                 </div>
               )
