@@ -11,17 +11,17 @@ import Phone from './phone'
 import TextArea from './textarea'
 import Checkbox from './checkbox'
 
-const RenderForm = ({ 
-  onSubmit, 
-  formData, 
+const RenderForm = ({
+  onSubmit,
+  formData,
   containerStyle,
-  rowStyle, 
-  inputStyle, 
-  btnContainerStyle, 
-  btnStyle, 
-  btnName, 
-  placeholder, 
-  errorLabel 
+  rowStyle,
+  inputStyle,
+  btnContainerStyle,
+  btnStyle,
+  btnName,
+  placeholder,
+  errorLabel
 }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
 
@@ -31,10 +31,10 @@ const RenderForm = ({
   const sortValues = (object, field) => (object.sort((a, b) => (a[field] > b[field]) ? 1 : ((b[field] > a[field]) ? -1 : 0)))
 
   useEffect(() => {
-    async function getEstados() {
+    async function getEstados () {
       await fetch(`${process.env.IBGE}/estados`)
-      .then(res => res.json())
-      .then(res => setUfs(sortValues(res, 'sigla')))
+        .then(res => res.json())
+        .then(res => setUfs(sortValues(res, 'sigla')))
     }
     getEstados()
   }, [])
@@ -48,7 +48,8 @@ const RenderForm = ({
       .then(res => setDistricts(sortValues(res, 'nome')))
   }
 
-  errorLabel ? errorLabel : ''
+  // eslint-disable-next-line no-unused-expressions
+  errorLabel || ''
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={`${containerStyle}`}>
