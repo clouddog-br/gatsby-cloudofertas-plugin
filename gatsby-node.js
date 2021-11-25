@@ -197,6 +197,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       tariffStartDate: Date
       tariff: String
       services: [CloudOfertasServico]
+      tariff: CloudOfertasTarifa
       additionalTariff: Boolean
       sundayIsOpenDelivery: Boolean
       sundayOpenDelivery: String
@@ -299,7 +300,6 @@ exports.createSchemaCustomization = ({ actions }) => {
       id: Int
       createdDate: Date
       name: String
-      tabloide: [CloudOfertasTabloide]
       type: String
       updatedDate: Date
     }
