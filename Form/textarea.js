@@ -8,6 +8,7 @@ const TextArea = ({ field, register, errors }) => {
         id={field.name}
         name={field.name}
         type='text'
+        placeholder={placeholder && `${field.label}`}
         className={`${errors[field.name] ? 'error' : ''}`}
         {...register(field.name, { required: field.required, maxLength: field.length !== null && field.length })}
         rows='5' cols="50"
