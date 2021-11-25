@@ -195,7 +195,6 @@ exports.createSchemaCustomization = ({ actions }) => {
       storeNumber: Int
       whatsapp: String
       tariffStartDate: Date
-      tariff: String
       services: [CloudOfertasServico]
       tariff: CloudOfertasTarifa
       additionalTariff: Boolean
