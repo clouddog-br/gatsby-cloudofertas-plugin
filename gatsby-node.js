@@ -173,7 +173,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       status: String
       url: String
       target: String
-      tariff: String
+      tariff: CloudOfertasTarifa
       showAll: Boolean
     }
     
