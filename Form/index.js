@@ -21,7 +21,8 @@ const RenderForm = ({
   btnStyle,
   btnName,
   placeholder,
-  errorLabel
+  errorLabel,
+  disabledButton
 }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
 
@@ -142,7 +143,7 @@ const RenderForm = ({
           }
         })}
         <div className={btnContainerStyle}>
-          <button type='submit' className={btnStyle}>
+          <button disabled={disabledButton !== undefined ? disabledButton : false} type='submit' className={btnStyle}>
             {btnName}
           </button>
         </div>
