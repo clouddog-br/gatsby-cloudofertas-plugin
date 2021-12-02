@@ -22,7 +22,10 @@ const RenderForm = ({
   btnName,
   placeholder,
   errorLabel,
-  disabledButton
+  disabledButton,
+  btnLoader,
+  btnLoaderWidth,
+  btnLoaderHeight
 }) => {
   const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
 
@@ -144,7 +147,13 @@ const RenderForm = ({
         })}
         <div className={btnContainerStyle}>
           <button disabled={disabledButton !== undefined ? disabledButton : false} type='submit' className={btnStyle}>
-            {btnName}
+            {btnLoader === true ? 
+              <Loader
+              width={btnLoaderWidth}
+              height={btnLoaderHeight}
+              type="Oval"
+              color="#00BFFF"
+            /> : btnName}
           </button>
         </div>
       </div>
