@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import Loader from 'react-loader-spinner'
 
 /* COMPONENTS */
 import Field from './input'
