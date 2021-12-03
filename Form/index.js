@@ -10,6 +10,7 @@ import City from './city'
 import Phone from './phone'
 import TextArea from './textarea'
 import Checkbox from './checkbox'
+import Upload from './upload'
 
 const RenderForm = ({
   onSubmit,
@@ -17,13 +18,15 @@ const RenderForm = ({
   containerStyle,
   rowStyle,
   inputStyle,
+  inputFileStyle,
+  inputSearchStyle,
   btnContainerStyle,
   btnStyle,
   btnName,
   placeholder,
   errorLabel
 }) => {
-  const { handleSubmit, register, clearErrors, formState: { errors } } = useForm()
+  const { handleSubmit, register, clearErrors, setValue, formState: { errors } } = useForm()
 
   const [ufs, setUfs] = useState([])
   const [districts, setDistricts] = useState([])
@@ -123,6 +126,19 @@ const RenderForm = ({
                     errors={errors}
                     placeholder={placeholder}
                     errorLabel={errorLabel}
+                  />
+                </div>
+              )
+            case 'upload':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputSearchStyle} ${field.style}`}>
+                  <Upload
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    errorLabel={errorLabel}
+                    inputFileStyle={inputFileStyle}
+                    setValue={setValue}
                   />
                 </div>
               )
