@@ -54,6 +54,9 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
     if (data.tabloides.length > 0) {
       data.tabloides.forEach(tabloide => {
         createNodeHandler(createNode, createContentDigest, tabloide, 'CloudOfertasTabloide')
+        tabloide.offer.forEach(offer => {
+          createNodeHandler(createNode, createContentDigest, offer, 'CloudOfertasOferta')
+        })
       })
     }
     if (data.categories.length > 0) {
@@ -125,6 +128,19 @@ exports.onCreateNode = async ({
         parentNodeId: node.id
       })
       node.image = loja.id
+    }
+  }
+  if (node.internal.type === 'CloudOfertasOferta') {
+    let oferta
+    if (node.image) {
+      oferta = await createRemoteFileNode({
+        url: node.image,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
+      node.image = oferta.id
     }
   }
   if (node.internal.type === 'CloudOfertasCategoria') {
