@@ -21,7 +21,7 @@ const getOptions = pluginOptions => {
   }
 }
 
-async function InfoCloudOfertas (actions, createContentDigest, createNodeId, pluginOptions) {
+async function InfoCloudOfertas(actions, createContentDigest, createNodeId, pluginOptions) {
   const { createNode } = actions
 
   let url
@@ -54,9 +54,6 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
     if (data.tabloides.length > 0) {
       data.tabloides.forEach(tabloide => {
         createNodeHandler(createNode, createContentDigest, tabloide, 'CloudOfertasTabloide')
-        tabloide.offer.forEach(offer => {
-          createNodeHandler(createNode, createContentDigest, offer, 'CloudOfertasOferta')
-        })
       })
     }
     if (data.categories.length > 0) {
@@ -74,7 +71,7 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
   }
 }
 
-function createNodeHandler (createNode, createContentDigest, item, type) {
+function createNodeHandler(createNode, createContentDigest, item, type) {
   createNode({
     ...item,
     parent: null,
@@ -130,18 +127,20 @@ exports.onCreateNode = async ({
       node.image = loja.id
     }
   }
-  if (node.internal.type === 'CloudOfertasOferta') {
-    let oferta
-    if (node.image) {
-      oferta = await createRemoteFileNode({
-        url: node.image,
-        getCache,
-        createNode,
-        createNodeId,
-        parentNodeId: node.id
-      })
-      node.image = oferta.id
-    }
+  if (node.internal.type === 'CloudOfertasTabloide') {
+    node.offer.forEach(off => {
+      let imagem
+      if (off.image) {
+        loja = await createRemoteFileNode({
+          url: node.image,
+          getCache,
+          createNode,
+          createNodeId,
+          parentNodeId: off.id
+        })
+        off.image = imagem.id
+      }
+    })
   }
   if (node.internal.type === 'CloudOfertasCategoria') {
     let categoria
