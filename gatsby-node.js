@@ -131,8 +131,8 @@ exports.onCreateNode = async ({
     node.offer.forEach(off => {
       let imagem
       if (off.image) {
-        loja = await createRemoteFileNode({
-          url: node.image,
+        imagem = await createRemoteFileNode({
+          url: off.image,
           getCache,
           createNode,
           createNodeId,
