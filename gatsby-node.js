@@ -21,7 +21,7 @@ const getOptions = pluginOptions => {
   }
 }
 
-async function InfoCloudOfertas (actions, createContentDigest, createNodeId, pluginOptions) {
+async function InfoCloudOfertas(actions, createContentDigest, createNodeId, pluginOptions) {
   const { createNode } = actions
 
   let url
@@ -43,27 +43,27 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
 
     if (data.banners.length > 0) {
       data.banners.forEach(banner => {
-        createNodeHandler(createNode, createContentDigest, banner, 'CloudOfertasBanner')
+        createNodeHandler(createNode, createNodeId, createContentDigest, banner, 'CloudOfertasBanner')
       })
     }
     if (data.lojas.length > 0) {
       data.lojas.forEach(loja => {
-        createNodeHandler(createNode, createContentDigest, loja, 'CloudOfertasLoja')
+        createNodeHandler(createNode, createNodeId, createContentDigest, loja, 'CloudOfertasLoja')
       })
     }
     if (data.tabloides.length > 0) {
       data.tabloides.forEach(tabloide => {
-        createNodeHandler(createNode, createContentDigest, tabloide, 'CloudOfertasTabloide')
+        createNodeHandler(createNode, createNodeId, createContentDigest, tabloide, 'CloudOfertasTabloide')
       })
     }
     if (data.categories.length > 0) {
       data.categories.forEach(categoria => {
-        createNodeHandler(createNode, createContentDigest, categoria, 'CloudOfertasCategoria')
+        createNodeHandler(createNode, createNodeId, createContentDigest, categoria, 'CloudOfertasCategoria')
       })
     }
     if (data.forms.length > 0) {
       data.forms.forEach(form => {
-        createNodeHandler(createNode, createContentDigest, form, 'CloudOfertasForm')
+        createNodeHandler(createNode, createNodeId, createContentDigest, form, 'CloudOfertasForm')
       })
     }
   } catch (err) {
@@ -71,8 +71,9 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
   }
 }
 
-function createNodeHandler (createNode, createContentDigest, item, type) {
+function createNodeHandler(createNode, createNodeId, createContentDigest, item, type) {
   createNode({
+    // id: createNodeId(item.id),
     ...item,
     parent: null,
     children: [],
@@ -127,6 +128,21 @@ exports.onCreateNode = async ({
       node.image = loja.id
     }
   }
+  // if (node.internal.type === 'CloudOfertasTabloide') {
+  //   node.offer.forEach(off => {
+  //     let imagem
+  //     if (off.image) {
+  //       imagem = await createRemoteFileNode({
+  //         url: off.image,
+  //         getCache,
+  //         createNode,
+  //         createNodeId,
+  //         parentNodeId: off.id
+  //       })
+  //       off.image = imagem.id
+  //     }
+  //   })
+  // }
   if (node.internal.type === 'CloudOfertasCategoria') {
     let categoria
     if (node.icon) {
@@ -173,7 +189,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       status: String
       url: String
       target: String
-      tariff: String
+      tariff: CloudOfertasTarifa
       showAll: Boolean
     }
     
@@ -195,8 +211,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       storeNumber: Int
       whatsapp: String
       tariffStartDate: Date
-      tariff: String
       services: [CloudOfertasServico]
+      tariff: CloudOfertasTarifa
       additionalTariff: Boolean
       sundayIsOpenDelivery: Boolean
       sundayOpenDelivery: String
@@ -299,7 +315,6 @@ exports.createSchemaCustomization = ({ actions }) => {
       id: Int
       createdDate: Date
       name: String
-      tabloide: [CloudOfertasTabloide]
       type: String
       updatedDate: Date
     }

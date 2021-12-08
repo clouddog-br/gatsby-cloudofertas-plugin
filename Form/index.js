@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import Loader from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 /* COMPONENTS */
 import Field from './input'
@@ -24,7 +26,11 @@ const RenderForm = ({
   btnStyle,
   btnName,
   placeholder,
-  errorLabel
+  errorLabel,
+  disabledButton,
+  btnLoader,
+  btnLoaderWidth,
+  btnLoaderHeight
 }) => {
   const { handleSubmit, register, clearErrors, setValue, formState: { errors } } = useForm()
 
@@ -158,8 +164,14 @@ const RenderForm = ({
           }
         })}
         <div className={btnContainerStyle}>
-          <button type='submit' className={btnStyle}>
-            {btnName}
+          <button disabled={disabledButton !== undefined ? disabledButton : false} type='submit' className={btnStyle}>
+            {btnLoader === true ? 
+              <Loader
+              width={btnLoaderWidth}
+              height={btnLoaderHeight}
+              type="Oval"
+              color="#00BFFF"
+            /> : btnName}
           </button>
         </div>
       </div>
