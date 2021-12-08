@@ -4,10 +4,13 @@ import slugify from 'slugify'
 
 const Upload = ({ field, register, errors, setValue }) => {
   const [view, setView] = useState('Nenhum arquivo selecionado')
+  console.log(view)
+  console.log(field.extension.replaceAll(',', '|').replace(/\s/g, ''))
 
   const handleFileInput = async (file) => {
-    setView(file.name)
-    const url = 'https://vngj04zh27.execute-api.us-east-1.amazonaws.com/dev/upload/signed-url'
+    setView(file ? file.name : '')
+
+    const url = `${process.env.GATSBY_APIURL}/upload/signed-url`
     const slugfiedString = slugify(file.name, { replacement: '_', lower: true })
 
     const config = {
@@ -17,15 +20,26 @@ const Upload = ({ field, register, errors, setValue }) => {
       params: { filename: slugfiedString, contentType: file.type }
     }
 
-    console.log('entrou')
     try {
       const res = await axios.get(url, config)
       setValue('key', res.data.key)
       setValue('field', field.name)
-      const resp = await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type } })
-      console.log(resp)
+      await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type } })
     } catch (err) {
       console.log('ERRO: ', err)
+    }
+  }
+
+  const ValidateExtension = (event) => {
+    const file = event[0] ? event[0].name : ''
+
+    // eslint-disable-next-line no-useless-escape
+    const regex = new RegExp(`([a-zA-Z0-9\s_\\.\-:])+(${field.extension.replaceAll(',', '|').replace(/\s/g, '')})`)
+
+    if (!regex.test(file)) {
+      return false
+    } else {
+      return true
     }
   }
 
@@ -37,8 +51,12 @@ const Upload = ({ field, register, errors, setValue }) => {
         name={field.name}
         type='file'
         className='d-none'
-        {...register(field.name, { required: field.required, maxLength: field.length !== null && field.length })}
-        onChange={(event) => handleFileInput(event.target.files[0])}
+        {...register(field.name, {
+          onChange: (e) => { handleFileInput(e.target.files[0]) },
+          required: field.required,
+          maxLength: field.length !== null && field.length,
+          validate: ValidateExtension
+        })}
       />
     </>
   )
