@@ -7,8 +7,11 @@ const State = ({ ufs, field, register, handleState, errors }) => {
       <select
         id={field.name}
         name={field.name}
-        {...register(field.name, { required: field.required, maxLength: field.length !== null && field.length })}
-        onChange={(event) => handleState(event)}
+        {...register(field.name, {
+          onChange: (e) => { handleState(e) },
+          required: field.required,
+          maxLength: field.length !== null && field.length
+        })}
         className={`${errors[field.name] ? 'error' : ''}`}
         defaultValue={''}
       >
