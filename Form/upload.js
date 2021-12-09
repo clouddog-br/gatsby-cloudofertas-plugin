@@ -4,8 +4,6 @@ import slugify from 'slugify'
 
 const Upload = ({ field, register, errors, setValue }) => {
   const [view, setView] = useState('Nenhum arquivo selecionado')
-  console.log(view)
-  console.log(field.extension.replaceAll(',', '|').replace(/\s/g, ''))
 
   const handleFileInput = async (file) => {
     setView(file ? file.name : '')

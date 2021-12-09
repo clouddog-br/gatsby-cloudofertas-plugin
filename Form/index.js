@@ -32,7 +32,7 @@ const RenderForm = ({
   btnLoaderWidth,
   btnLoaderHeight
 }) => {
-  const { handleSubmit, register, clearErrors, setValue, formState: { errors } } = useForm()
+  const { handleSubmit, register, setValue, formState: { errors } } = useForm()
 
   const [ufs, setUfs] = useState([])
   const [districts, setDistricts] = useState([])
@@ -49,7 +49,6 @@ const RenderForm = ({
   }, [])
 
   const handleStateSelected = (event) => {
-    clearErrors('estado')
     const index = ufs.findIndex(value => value.sigla === event.target.value)
     const state = ufs[index]
     fetch(`${process.env.IBGE}/estados/${state.id}/municipios`)
