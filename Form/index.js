@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Loader from 'react-loader-spinner'
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import { ClipLoader } from 'react-spinners'
 
 /* COMPONENTS */
 import Field from './input'
@@ -29,6 +28,7 @@ const RenderForm = ({
   errorLabel,
   disabledButton,
   btnLoader,
+  btnLoaderColor,
   btnLoaderWidth,
   btnLoaderHeight
 }) => {
@@ -164,13 +164,13 @@ const RenderForm = ({
         })}
         <div className={btnContainerStyle}>
           <button disabled={disabledButton !== undefined ? disabledButton : false} type='submit' className={btnStyle}>
-            {btnLoader === true ? 
-              <Loader
+            {btnLoader === true
+              ? <ClipLoader
               width={btnLoaderWidth}
               height={btnLoaderHeight}
-              type="Oval"
-              color="#00BFFF"
-            /> : btnName}
+              color={btnLoaderColor}
+            />
+              : btnName}
           </button>
         </div>
       </div>
