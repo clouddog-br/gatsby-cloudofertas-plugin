@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { ClipLoader } from 'react-spinners'
@@ -12,6 +11,7 @@ import Phone from './phone'
 import TextArea from './textarea'
 import Checkbox from './checkbox'
 import Upload from './upload'
+import Mask from './inputmask'
 
 const RenderForm = ({
   onSubmit,
@@ -19,7 +19,6 @@ const RenderForm = ({
   containerStyle,
   rowStyle,
   inputStyle,
-  inputFileStyle,
   inputSearchStyle,
   btnContainerStyle,
   btnStyle,
@@ -134,6 +133,17 @@ const RenderForm = ({
                   />
                 </div>
               )
+            case 'inputmask':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Mask
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                  />
+                </div>
+              )
             case 'upload':
               return (
                 <div key={`${field.id}-${index}`} className={`${inputSearchStyle} ${field.style}`}>
@@ -142,7 +152,6 @@ const RenderForm = ({
                     register={register}
                     errors={errors}
                     errorLabel={errorLabel}
-                    inputFileStyle={inputFileStyle}
                     setValue={setValue}
                   />
                 </div>

@@ -337,6 +337,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       required: Boolean
       style: String
       type: String
+      mask: String
+      extension: String
       formLov:CloudOfertasFormLov
     }
 

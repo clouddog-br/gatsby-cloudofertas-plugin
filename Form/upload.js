@@ -3,7 +3,7 @@ import axios from 'axios'
 import slugify from 'slugify'
 
 const Upload = ({ field, register, errors, setValue }) => {
-  const [view, setView] = useState('Nenhum arquivo selecionado')
+  const [view, setView] = useState(field.label)
 
   const handleFileInput = async (file) => {
     setView(file ? file.name : '')
@@ -43,7 +43,7 @@ const Upload = ({ field, register, errors, setValue }) => {
 
   return (
     <>
-      <label htmlFor={field.name} className={`${errors[field.name] ? 'error' : ''} d-block`}>{view}</label>
+      <label htmlFor={field.name} className={`${errors[field.name] ? 'error' : ''}`}>{view}</label>
       <input
         id={field.name}
         name={field.name}
