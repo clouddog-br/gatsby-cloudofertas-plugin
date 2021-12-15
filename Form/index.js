@@ -27,6 +27,8 @@ const RenderForm = ({
   errorLabel,
   disabledButton,
   btnLoader,
+  btnLoaderContainer,
+  btnLoaderLabel,
   btnLoaderColor,
   btnLoaderWidth,
   btnLoaderHeight
@@ -174,11 +176,16 @@ const RenderForm = ({
         <div className={btnContainerStyle}>
           <button disabled={disabledButton !== undefined ? disabledButton : false} type='submit' className={btnStyle}>
             {btnLoader === true
-              ? <ClipLoader
-              width={btnLoaderWidth}
-              height={btnLoaderHeight}
-              color={btnLoaderColor}
-            />
+              ? <div className={btnLoaderContainer}>
+                  <ClipLoader
+                    width={btnLoaderWidth}
+                    height={btnLoaderHeight}
+                    color={btnLoaderColor}
+                  />
+                  <span>
+                    {btnLoaderLabel}
+                  </span>
+                </div>
               : btnName}
           </button>
         </div>
