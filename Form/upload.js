@@ -8,12 +8,12 @@ const Upload = ({ field, register, errors, setValue, setDisabledBtn }) => {
   const handleFileInput = async (file) => {
     setView(file ? file.name : '')
 
-    const url = `${process.env.GATSBY_APIURL}/upload/signed-url`
+    const url = `${process.env.CLOUDOFERTAS_API_URL}/upload/signed-url`
     const slugfiedString = slugify(file.name, { replacement: '_', lower: true })
 
     const config = {
       headers: {
-        accesstoken: process.env.GATSBY_SITE_KEY
+        accesstoken: process.env.CLOUDOFERTAS_SITE_KEY
       },
       params: { filename: slugfiedString, contentType: file.type }
     }
