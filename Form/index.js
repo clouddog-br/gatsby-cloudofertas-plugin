@@ -14,6 +14,7 @@ import Upload from './upload'
 import Mask from './inputmask'
 
 const RenderForm = ({
+  getWatch,
   onSubmit,
   formData,
   containerStyle,
@@ -33,13 +34,17 @@ const RenderForm = ({
   btnLoaderWidth,
   btnLoaderHeight
 }) => {
-  const { handleSubmit, register, setValue, formState: { errors } } = useForm()
+  const { handleSubmit, register, setValue, formState: { errors }, watch } = useForm()
 
   const [disabledBtn, setDisabledBtn] = useState(disabledButton)
   const [ufs, setUfs] = useState([])
   const [districts, setDistricts] = useState([])
 
   const sortValues = (object, field) => (object.sort((a, b) => (a[field] > b[field]) ? 1 : ((b[field] > a[field]) ? -1 : 0)))
+
+  useEffect(() => {
+    getWatch(watch())
+  })
 
   useEffect(() => {
     async function getEstados () {
