@@ -35,6 +35,7 @@ const RenderForm = ({
 }) => {
   const { handleSubmit, register, setValue, formState: { errors } } = useForm()
 
+  const [disabledBtn, setDisabledBtn] = useState(disabledButton)
   const [ufs, setUfs] = useState([])
   const [districts, setDistricts] = useState([])
 
@@ -155,6 +156,7 @@ const RenderForm = ({
                     errors={errors}
                     errorLabel={errorLabel}
                     setValue={setValue}
+                    setDisabledBtn={setDisabledBtn}
                   />
                 </div>
               )
@@ -174,7 +176,7 @@ const RenderForm = ({
           }
         })}
         <div className={btnContainerStyle}>
-          <button disabled={disabledButton !== undefined ? disabledButton : false} type='submit' className={btnStyle}>
+          <button disabled={disabledBtn !== undefined ? disabledBtn : false} type='submit' className={btnStyle}>
             {btnLoader === true
               ? <div className={btnLoaderContainer}>
                   <ClipLoader

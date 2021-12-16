@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import slugify from 'slugify'
 
-const Upload = ({ field, register, errors, setValue }) => {
+const Upload = ({ field, register, errors, setValue, setDisabledBtn }) => {
   const [view, setView] = useState(field.label)
 
   const handleFileInput = async (file) => {
@@ -19,10 +19,18 @@ const Upload = ({ field, register, errors, setValue }) => {
     }
 
     try {
+      setDisabledBtn(true)
+      setView('Carregando arquivo...')
+
       const res = await axios.get(url, config)
+
       setValue('key', res.data.key)
       setValue('field', field.name)
+
       await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type } })
+
+      setView(file ? file.name : '')
+      setDisabledBtn(false)
     } catch (err) {
       console.log('ERRO: ', err)
     }
@@ -32,7 +40,7 @@ const Upload = ({ field, register, errors, setValue }) => {
     const file = event[0] ? event[0].name : ''
 
     // eslint-disable-next-line no-useless-escape
-    const regex = new RegExp(`([a-zA-Z0-9\s_\\.\-:])+(${field.extension.replaceAll(',', '|').replace(/\s/g, '')})`)
+    const regex = new RegExp(`([a-zA-Z0-9()\s_\\.\-:])+(${field.extension.replaceAll(',', '|').replace(/\s/g, '')})`)
 
     if (!regex.test(file)) {
       return false
