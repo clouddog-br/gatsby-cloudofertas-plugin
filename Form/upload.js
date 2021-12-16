@@ -40,7 +40,7 @@ const Upload = ({ field, register, errors, setValue, setDisabledBtn }) => {
     const file = event[0] ? event[0].name : ''
 
     // eslint-disable-next-line no-useless-escape
-    const regex = new RegExp(`([a-zA-Z0-9()\s_\\.\-:])+(${field.extension.replaceAll(',', '|').replace(/\s/g, '')})`)
+    const regex = new RegExp(`(${field.extension.replaceAll(',', '|').replace(/\s/g, '')})`)
 
     if (!regex.test(file)) {
       return false
