@@ -42,9 +42,11 @@ const RenderForm = ({
 
   const sortValues = (object, field) => (object.sort((a, b) => (a[field] > b[field]) ? 1 : ((b[field] > a[field]) ? -1 : 0)))
 
-  useEffect(() => {
-    getWatch(watch())
-  })
+  if (getWatch !== undefined) {
+    useEffect(() => {
+      getWatch(watch())
+    })
+  }
 
   useEffect(() => {
     async function getEstados () {
