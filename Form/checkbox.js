@@ -9,10 +9,9 @@ const Checkbox = ({ field, register, errors, errorLabel }) => {
         id={field.name}
         name={field.name}
         type="checkbox"
-        className={`${errors[field.name] ? 'error' : ''}`}
         {...register(field.name, { required: field.required })}
         />
-        <label htmlFor={field.name}>{parse(field.label)}</label>
+        <label htmlFor={field.name} className={`${errors[field.name] ? 'error' : ''}`}>{parse(field.label)}</label>
     </div>
     </>
   )

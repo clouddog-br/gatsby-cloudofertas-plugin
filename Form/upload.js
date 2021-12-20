@@ -39,13 +39,12 @@ const Upload = ({ field, register, errors, setValue, setDisabledBtn }) => {
   const ValidateExtension = (event) => {
     const file = event[0] ? event[0].name : ''
 
-    // eslint-disable-next-line no-useless-escape
-    const regex = new RegExp(`(${field.extension.replaceAll(',', '|').replace(/\s/g, '')})`)
+    const regex = new RegExp(field.extension)
 
-    if (!regex.test(file)) {
-      return false
-    } else {
+    if (regex.test(file)) {
       return true
+    } else {
+      return false
     }
   }
 
