@@ -31,7 +31,7 @@ const RenderForm = ({
   btnLoaderContainer,
   btnLoaderLabel,
   btnLoaderColor,
-  btnSize
+  btnLoaderSize
 }) => {
   const { handleSubmit, register, setValue, formState: { errors }, watch } = useForm()
 
@@ -186,7 +186,7 @@ const RenderForm = ({
             {btnLoader === true
               ? <div className={btnLoaderContainer}>
                   <ClipLoader
-                    size={btnSize}
+                    size={btnLoaderSize}
                     color={btnLoaderColor}
                   />
                   <span>
