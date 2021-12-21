@@ -47,14 +47,16 @@ const RenderForm = ({
     })
   }
 
-  useEffect(() => {
-    async function getEstados () {
-      await fetch(`${process.env.IBGE}/estados`)
-        .then(res => res.json())
-        .then(res => setUfs(sortValues(res, 'sigla')))
-    }
-    getEstados()
-  }, [])
+  if (process.env.IBGE !== undefined) {
+    useEffect(() => {
+      async function getEstados () {
+        await fetch(`${process.env.IBGE}/estados`)
+          .then(res => res.json())
+          .then(res => setUfs(sortValues(res, 'sigla')))
+      }
+      getEstados()
+    }, [])
+  }
 
   const handleStateSelected = (event) => {
     const index = ufs.findIndex(value => value.sigla === event.target.value)
