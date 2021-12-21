@@ -84,6 +84,7 @@ const RenderForm = ({
                     register={register}
                     errors={errors}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'state':
@@ -96,6 +97,7 @@ const RenderForm = ({
                     handleState={handleStateSelected}
                     errors={errors}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'city':
@@ -107,6 +109,7 @@ const RenderForm = ({
                     register={register}
                     errors={errors}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'phone':
@@ -119,6 +122,7 @@ const RenderForm = ({
                     placeholder={placeholder}
                     errorLabel={errorLabel}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'textarea':
@@ -130,6 +134,7 @@ const RenderForm = ({
                     errors={errors}
                     placeholder={placeholder}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'checkbox':
@@ -142,6 +147,7 @@ const RenderForm = ({
                     placeholder={placeholder}
                     errorLabel={errorLabel}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'inputmask':
@@ -153,6 +159,7 @@ const RenderForm = ({
                     errors={errors}
                     placeholder={placeholder}
                   />
+                  {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'upload':
@@ -166,6 +173,7 @@ const RenderForm = ({
                     setValue={setValue}
                     setDisabledBtn={setDisabledBtn}
                   />
+                   {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
             case 'input':
@@ -179,6 +187,7 @@ const RenderForm = ({
                     placeholder={placeholder}
                     errorLabel={errorLabel}
                   />
+                  {errorLabel === 'bottom' && <small>{errors[field.name] && 'Campo obrigatatório'}</small>}
                 </div>
               )
           }
