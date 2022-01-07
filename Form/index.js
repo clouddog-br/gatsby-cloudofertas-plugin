@@ -12,6 +12,7 @@ import TextArea from './textarea'
 import Checkbox from './checkbox'
 import Upload from './upload'
 import Mask from './inputmask'
+import Terms from './terms'
 
 const RenderForm = ({
   getWatch,
@@ -174,6 +175,19 @@ const RenderForm = ({
                     setDisabledBtn={setDisabledBtn}
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
+                </div>
+              )
+            case 'terms':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Terms
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
               )
             case 'input':
