@@ -25,6 +25,8 @@ const RenderForm = ({
   btnContainerStyle,
   btnStyle,
   btnName,
+  modalStyle,
+  modalCheckBoxStyle,
   placeholder,
   errorLabel,
   disabledButton,
@@ -34,7 +36,7 @@ const RenderForm = ({
   btnLoaderColor,
   btnLoaderSize
 }) => {
-  const { handleSubmit, register, setValue, formState: { errors }, watch } = useForm()
+  const { handleSubmit, register, setValue, getValues, formState: { errors }, watch } = useForm()
 
   const [disabledBtn, setDisabledBtn] = useState(false)
   const [ufs, setUfs] = useState([])
@@ -185,7 +187,11 @@ const RenderForm = ({
                     register={register}
                     errors={errors}
                     placeholder={placeholder}
+                    getValues={getValues}
+                    setValue={setValue}
                     errorLabel={errorLabel}
+                    modalStyle={modalStyle}
+                    modalCheckBoxStyle={modalCheckBoxStyle}
                   />
                   {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
