@@ -340,6 +340,14 @@ exports.createSchemaCustomization = ({ actions }) => {
       mask: String
       extension: String
       formLov:CloudOfertasFormLov
+      formTerms:CloudOfertasFormTerms
+    }
+
+    type CloudOfertasFormTerms implements Node {
+      id: String
+      name: String
+      contract: String
+      version: String
     }
 
     type CloudOfertasFormLov implements Node {
