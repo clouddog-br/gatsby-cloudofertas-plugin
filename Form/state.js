@@ -15,7 +15,7 @@ const State = ({ ufs, field, register, handleState, errors }) => {
         className={`${errors[field.name] ? 'error' : ''}`}
         defaultValue={''}
       >
-         <option value='' disabled> Selecionar </option>
+         <option value='' disabled> Selecione um Estado </option>
         {
           ufs.map(uf => {
             uf.concat = uf.sigla + ' - ' + uf.nome

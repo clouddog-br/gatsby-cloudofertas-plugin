@@ -11,7 +11,7 @@ const City = ({ districts, field, register, errors }) => {
         className={`${errors[field.name] ? 'error' : ''}`}
         defaultValue={''}
       >
-        <option value='' disabled> Selecionar </option>
+        <option value='' disabled> Selecione uma Cidade</option>
         {
           districts.map(district => {
             return (
