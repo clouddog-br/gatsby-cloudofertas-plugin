@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -78,7 +77,7 @@ const RenderForm = ({
 
   const filterData = formGroups
     ? formGroups.map(group => {
-      group.formData = formData.filter(field => {
+      group.formData = formData.formTypeField.filter(field => {
         if (group.id === field.formGroups.id) {
           return field
         }
@@ -87,6 +86,18 @@ const RenderForm = ({
       return group
     })
     : ''
+
+  const PushDataLayer = () => {
+    if (window.dataLayer) {
+      window.dataLayer.push({ form: null })
+      window.dataLayer.push({
+        event: 'generate_lead',
+        form: {
+          type: formData.name
+        }
+      })
+    }
+  }
 
   const RenderFields = ({ formFields }) => {
     return (
@@ -229,12 +240,27 @@ const RenderForm = ({
             }
           })
         }
+        <div className={btnContainerStyle}>
+          <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
+            {btnLoader === true
+              ? <div className={btnLoaderContainer}>
+                  <ClipLoader
+                    size={btnLoaderSize}
+                    color={btnLoaderColor}
+                  />
+                  <span>
+                    {btnLoaderLabel}
+                  </span>
+                </div>
+              : btnName}
+          </button>
+        </div>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={`${containerStyle}`}>
+    <form onSubmit={handleSubmit(onSubmit, PushDataLayer)} className={`${containerStyle}`}>
       <div>
         { filterData &&
           filterData.map((group) => {
@@ -247,25 +273,8 @@ const RenderForm = ({
           })
         }
         { !filterData &&
-          <RenderFields formFields={formData} />
+          <RenderFields formFields={formData.formTypeField} />
         }
-        <div className={`${rowStyle}`}>
-          <div className={btnContainerStyle}>
-            <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
-              {btnLoader === true
-                ? <div className={btnLoaderContainer}>
-                    <ClipLoader
-                      size={btnLoaderSize}
-                      color={btnLoaderColor}
-                    />
-                    <span>
-                      {btnLoaderLabel}
-                    </span>
-                  </div>
-                : btnName}
-            </button>
-          </div>
-        </div>
       </div>
     </form>
   )
