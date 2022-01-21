@@ -326,6 +326,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       feedback_notification_template: String
       send_feedback: Boolean
       forward_notification_template: String
+      formGroups: [CloudOfertasFormGroups]
       formTypeField: [CloudOfertasFormFields]
     }
 
@@ -341,6 +342,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       extension: String
       formLov:CloudOfertasFormLov
       formTerms:CloudOfertasFormTerms
+      formGroups:CloudOfertasFormGroups
     }
 
     type CloudOfertasFormTerms implements Node {
@@ -348,6 +350,12 @@ exports.createSchemaCustomization = ({ actions }) => {
       name: String
       contract: String
       version: String
+    }
+
+    type CloudOfertasFormGroups implements Node {
+      id: String
+      name: String
+      order: String
     }
 
     type CloudOfertasFormLov implements Node {

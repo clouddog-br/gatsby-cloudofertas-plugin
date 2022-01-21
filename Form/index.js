@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { ClipLoader } from 'react-spinners'
@@ -18,8 +20,10 @@ const RenderForm = ({
   getWatch,
   onSubmit,
   formData,
+  formGroups,
   containerStyle,
   rowStyle,
+  formGroupsStyle,
   inputStyle,
   inputSearchStyle,
   btnContainerStyle,
@@ -72,14 +76,26 @@ const RenderForm = ({
   // eslint-disable-next-line no-unused-expressions
   errorLabel || ''
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className={`${containerStyle}`}>
+  const filterData = formGroups
+    ? formGroups.map(group => {
+      group.formData = formData.filter(field => {
+        if (group.id === field.formGroups.id) {
+          return field
+        }
+      })
+
+      return group
+    })
+    : ''
+
+  const RenderFields = ({ formFields }) => {
+    return (
       <div className={`${rowStyle}`}>
-        <h2>{formData.label}</h2>
-        {formData.map((field, index) => {
-          switch (field.type) {
-            case 'select':
-              return (
+        {
+          formFields.map((field, index) => {
+            switch (field.type) {
+              case 'select':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Select
                     field={field}
@@ -89,9 +105,9 @@ const RenderForm = ({
                   />
                   {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'state':
-              return (
+                )
+              case 'state':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <State
                     ufs={ufs}
@@ -102,9 +118,9 @@ const RenderForm = ({
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'city':
-              return (
+                )
+              case 'city':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <City
                     districts={districts}
@@ -114,9 +130,9 @@ const RenderForm = ({
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'phone':
-              return (
+                )
+              case 'phone':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Phone
                     field={field}
@@ -127,9 +143,9 @@ const RenderForm = ({
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'textarea':
-              return (
+                )
+              case 'textarea':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <TextArea
                     field={field}
@@ -139,9 +155,9 @@ const RenderForm = ({
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'checkbox':
-              return (
+                )
+              case 'checkbox':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Checkbox
                     field={field}
@@ -152,9 +168,9 @@ const RenderForm = ({
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'inputmask':
-              return (
+                )
+              case 'inputmask':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Mask
                     field={field}
@@ -162,11 +178,11 @@ const RenderForm = ({
                     errors={errors}
                     placeholder={placeholder}
                   />
-                   {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
+                    {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'upload':
-              return (
+                )
+              case 'upload':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputSearchStyle} ${field.style}`}>
                   <Upload
                     field={field}
@@ -178,9 +194,9 @@ const RenderForm = ({
                   />
                     {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'terms':
-              return (
+                )
+              case 'terms':
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Terms
                     field={field}
@@ -195,10 +211,10 @@ const RenderForm = ({
                   />
                   {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-            case 'input':
-            default:
-              return (
+                )
+              case 'input':
+              default:
+                return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <Field
                     field={field}
@@ -207,25 +223,48 @@ const RenderForm = ({
                     placeholder={placeholder}
                     errorLabel={errorLabel}
                   />
-                   {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
+                    {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
                 </div>
-              )
-          }
-        })}
-        <div className={btnContainerStyle}>
-          <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
-            {btnLoader === true
-              ? <div className={btnLoaderContainer}>
-                  <ClipLoader
-                    size={btnLoaderSize}
-                    color={btnLoaderColor}
-                  />
-                  <span>
-                    {btnLoaderLabel}
-                  </span>
-                </div>
-              : btnName}
-          </button>
+                )
+            }
+          })
+        }
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className={`${containerStyle}`}>
+      <div>
+        { filterData &&
+          filterData.map((group) => {
+            return (
+              <>
+                <p className={formGroupsStyle}>{group.name}</p>
+                <RenderFields formFields={group.formData} />
+              </>
+            )
+          })
+        }
+        { !filterData &&
+          <RenderFields formFields={formData} />
+        }
+        <div className={`${rowStyle}`}>
+          <div className={btnContainerStyle}>
+            <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
+              {btnLoader === true
+                ? <div className={btnLoaderContainer}>
+                    <ClipLoader
+                      size={btnLoaderSize}
+                      color={btnLoaderColor}
+                    />
+                    <span>
+                      {btnLoaderLabel}
+                    </span>
+                  </div>
+                : btnName}
+            </button>
+          </div>
         </div>
       </div>
     </form>
