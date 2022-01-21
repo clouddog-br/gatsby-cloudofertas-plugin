@@ -101,7 +101,7 @@ const RenderForm = ({
 
   const RenderFields = ({ formFields }) => {
     return (
-      <div className={`${rowStyle}`}>
+      <>
         {
           formFields.map((field, index) => {
             switch (field.type) {
@@ -240,21 +240,26 @@ const RenderForm = ({
             }
           })
         }
-        <div className={btnContainerStyle}>
-          <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
-            {btnLoader === true
-              ? <div className={btnLoaderContainer}>
-                  <ClipLoader
-                    size={btnLoaderSize}
-                    color={btnLoaderColor}
-                  />
-                  <span>
-                    {btnLoaderLabel}
-                  </span>
-                </div>
-              : btnName}
-          </button>
-        </div>
+      </>
+    )
+  }
+
+  const RenderBtn = () => {
+    return (
+      <div className={btnContainerStyle}>
+        <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
+          {btnLoader === true
+            ? <div className={btnLoaderContainer}>
+                <ClipLoader
+                  size={btnLoaderSize}
+                  color={btnLoaderColor}
+                />
+                <span>
+                  {btnLoaderLabel}
+                </span>
+              </div>
+            : btnName}
+        </button>
       </div>
     )
   }
@@ -263,17 +268,25 @@ const RenderForm = ({
     <form onSubmit={handleSubmit(onSubmit, PushDataLayer)} className={`${containerStyle}`}>
       <div>
         { filterData &&
-          filterData.map((group) => {
+          filterData.map((group, index) => {
             return (
               <>
                 <p className={formGroupsStyle}>{group.name}</p>
-                <RenderFields formFields={group.formData} />
+                <div className={`${rowStyle}`}>
+                  <RenderFields formFields={group.formData} />
+                  {filterData.length === index + 1 &&
+                    <RenderBtn />
+                  }
+                </div>
               </>
             )
           })
         }
         { !filterData &&
-          <RenderFields formFields={formData.formTypeField} />
+          <div className={`${rowStyle}`}>
+            <RenderFields formFields={formData.formTypeField} />
+            <RenderBtn />
+          </div>
         }
       </div>
     </form>
