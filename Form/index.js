@@ -88,14 +88,16 @@ const RenderForm = ({
     : ''
 
   const PushDataLayer = () => {
-    if (window.dataLayer) {
-      window.dataLayer.push({ form: null })
-      window.dataLayer.push({
-        event: 'generate_lead',
-        form: {
-          type: formData.name
-        }
-      })
+    if (typeof window !== 'undefined') {
+      if (window.dataLayer) {
+        window.dataLayer.push({ form: null })
+        window.dataLayer.push({
+          event: 'generate_lead',
+          form: {
+            type: formData.name
+          }
+        })
+      }
     }
   }
 
