@@ -58,7 +58,10 @@ const RenderForm = (data) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, PushDataLayer())} className={`${containerStyle}`}>
+    <form onSubmit={handleSubmit((data) => {
+      onSubmit(data)
+      PushDataLayer()
+    })} className={`${containerStyle}`}>
       <div>
         { filterData &&
           filterData.map((group, index) => {
