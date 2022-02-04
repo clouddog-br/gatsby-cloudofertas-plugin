@@ -6,6 +6,14 @@ import ReactMarkdown from 'react-markdown'
 import { Modal } from 'react-responsive-modal'
 import 'react-responsive-modal/styles.css'
 
+const LinkRenderer = ({ href, children }) => {
+  return (
+    <a href={href} target="_blank" rel="noreferrer">
+      {children}
+    </a>
+  )
+}
+
 const Terms = ({ field, register, errors, errorLabel, setValue, getValues, modalStyle, modalCheckBoxStyle }) => {
   const [open, setOpen] = useState(false)
 
@@ -27,8 +35,7 @@ const Terms = ({ field, register, errors, errorLabel, setValue, getValues, modal
       </div>
       <Modal open={open} onClose={onCloseModal} classNames={{ modal: modalStyle }} center>
         <div>
-          <h2>{field.formTerms.name}</h2>
-          <ReactMarkdown children={field.formTerms.contract} />
+          <ReactMarkdown components={{ a: LinkRenderer }}>{field.formTerms.contract}</ReactMarkdown>
           <div className={modalCheckBoxStyle} >
             <input
               id={`${field.name}-open`}
