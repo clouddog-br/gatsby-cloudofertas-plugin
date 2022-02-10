@@ -93,6 +93,7 @@ const RenderForm = (data) => {
                       }
                     <RenderBtn
                       {...data}
+                      showTokenField={showTokenField}
                       disabledBtn={disabledBtn}
                     />
                   </>
@@ -125,6 +126,7 @@ const RenderForm = (data) => {
             }
             <RenderBtn
               {...data}
+              showTokenField={showTokenField}
               disabledBtn={disabledBtn}
             />
           </div>

@@ -11,7 +11,8 @@ const RenderBtn = ({
   btnLoaderColor,
   btnLoaderSize,
   disabledButton,
-  disabledBtn
+  disabledBtn,
+  showTokenField
 }) => {
   return (
     <div className={btnContainerStyle}>
@@ -23,7 +24,7 @@ const RenderBtn = ({
                 color={btnLoaderColor}
               />
               <span>
-                {btnLoaderLabel}
+                {showTokenField ? 'Confirmar': btnLoaderLabel}
               </span>
             </div>
           : btnName}
