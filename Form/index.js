@@ -1,14 +1,15 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 /* COMPONENTS */
 import RenderFields from './render-fields'
+import RenderTokenFields from './render-token-fields'
 import RenderBtn from './render-btn'
 
 const RenderForm = (data) => {
   const {
+    showTokenField,
     formData,
     formGroups,
     formGroupsStyle,
@@ -69,20 +70,32 @@ const RenderForm = (data) => {
               <>
                 <p className={formGroupsStyle}>{group.name}</p>
                 <div className={`${rowStyle}`}>
-                  <RenderFields
-                    {...data}
-                    formFields={group.formData}
-                    register={register}
-                    getValues={getValues}
-                    setValue={setValue}
-                    errors={errors}
-                    setDisabledBtn={setDisabledBtn}
-                  />
+                  {!showTokenField &&
+                    <RenderFields
+                      {...data}
+                      formFields={group.formData}
+                      register={register}
+                      getValues={getValues}
+                      setValue={setValue}
+                      errors={errors}
+                      setDisabledBtn={setDisabledBtn}
+                    />
+                  }
                   {filterData.length === index + 1 &&
+                  <>
+                    {showTokenField &&
+                        <RenderTokenFields
+                          {...data}
+                          register={register}
+                          getValues={getValues}
+                          setValue={setValue}
+                        />
+                      }
                     <RenderBtn
                       {...data}
                       disabledBtn={disabledBtn}
                     />
+                  </>
                   }
                 </div>
               </>
@@ -91,15 +104,25 @@ const RenderForm = (data) => {
         }
         { !filterData &&
           <div className={`${rowStyle}`}>
-            <RenderFields
-              {...data}
-              formFields={formData.formTypeField}
-              register={register}
-              getValues={getValues}
-              setValue={setValue}
-              errors={errors}
-              setDisabledBtn={setDisabledBtn}
-            />
+            {!showTokenField &&
+              <RenderFields
+                {...data}
+                formFields={formData.formTypeField}
+                register={register}
+                getValues={getValues}
+                setValue={setValue}
+                errors={errors}
+                setDisabledBtn={setDisabledBtn}
+              />
+            }
+            {showTokenField &&
+              <RenderTokenFields
+                {...data}
+                register={register}
+                getValues={getValues}
+                setValue={setValue}
+              />
+            }
             <RenderBtn
               {...data}
               disabledBtn={disabledBtn}
