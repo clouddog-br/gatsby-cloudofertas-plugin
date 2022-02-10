@@ -24,10 +24,10 @@ const RenderBtn = ({
                 color={btnLoaderColor}
               />
               <span>
-                {showTokenField ? 'Confirmar': btnLoaderLabel}
+                {btnLoaderLabel}
               </span>
             </div>
-          : btnName}
+          : showTokenField ? 'Confirmar' : btnName}
       </button>
     </div>
   )
