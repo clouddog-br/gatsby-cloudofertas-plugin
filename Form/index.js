@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import axios from 'axios'
 
 /* COMPONENTS */
 import RenderFields from './render-fields'
@@ -22,12 +24,18 @@ const RenderForm = (data) => {
 
   const { handleSubmit, register, setValue, getValues, formState: { errors }, watch } = useForm()
   const [disabledBtn, setDisabledBtn] = useState(false)
+  const [IPv4, setIPv4] = useState()
 
   if (getWatch !== undefined) {
     useEffect(() => {
       getWatch(watch())
     })
   }
+
+  useEffect(async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+    setIPv4(res.data.IPv4)
+  }, [])
 
   // eslint-disable-next-line no-unused-expressions
   errorLabel || ''
@@ -60,6 +68,7 @@ const RenderForm = (data) => {
 
   return (
     <form onSubmit={handleSubmit((data) => {
+      data.ip = IPv4
       onSubmit(data)
       PushDataLayer()
     })} className={`${containerStyle}`}>
