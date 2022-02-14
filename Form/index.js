@@ -11,20 +11,30 @@ import RenderBtn from './render-btn'
 
 const RenderForm = (data) => {
   const {
-    showTokenField,
     formData,
+    setSuccessSubmit,
     formGroups,
     formGroupsStyle,
     containerStyle,
     rowStyle,
     errorLabel,
-    onSubmit,
-    getWatch
+    getWatch,
+    watchTokenSection
   } = data
 
   const { handleSubmit, register, setValue, getValues, formState: { errors }, watch } = useForm()
+
+  const [loading, setLoading] = useState(false)
   const [disabledBtn, setDisabledBtn] = useState(false)
-  const [IPv4, setIPv4] = useState()
+
+  const [handleFormDataId, setHandleFormDataId] = useState()
+  const [showTokenSection, setShowTokenSection] = useState(false)
+  const [handleTokenError, setHandleTokenError] = useState()
+
+  const apiUrl = `${process.env.GATSBY_CLOUDOFERTAS_API_URL}/sites/${process.env.GATSBY_CLOUDOFERTAS_SITE_ID}/form-data/${formData.id}/`
+  const apiUrlToken = `${process.env.GATSBY_CLOUDOFERTAS_API_URL}/sites/${process.env.GATSBY_CLOUDOFERTAS_SITE_ID}/form-data/${handleFormDataId}/`
+
+  const terms = data.formData.formTypeField.filter(value => value.type === 'terms')[0]
 
   if (getWatch !== undefined) {
     useEffect(() => {
@@ -32,10 +42,9 @@ const RenderForm = (data) => {
     })
   }
 
-  useEffect(async () => {
-    const res = await axios.get('https://geolocation-db.com/json/')
-    setIPv4(res.data.IPv4)
-  }, [])
+  if (watchTokenSection !== undefined) {
+    watchTokenSection(showTokenSection)
+  }
 
   // eslint-disable-next-line no-unused-expressions
   errorLabel || ''
@@ -66,11 +75,54 @@ const RenderForm = (data) => {
     }
   }
 
+  const onSubmit = async (data) => {
+    setLoading(true)
+    setDisabledBtn(true)
+    try {
+      const config = {
+        headers: {
+          accessToken: process.env.GATSBY_CLOUDOFERTAS_SITE_KEY
+        }
+      }
+
+      if (terms !== undefined) {
+        data.termos = terms.formTerms.version
+      }
+
+      if (!formData.has_token) {
+        const result = await axios.post(apiUrl, data, config)
+        setSuccessSubmit(true)
+        console.log('result:', result)
+      } else {
+        if (showTokenSection) {
+          const result = await axios.patch(apiUrlToken, { token: data.token }, config)
+          setSuccessSubmit(true)
+          setDisabledBtn(false)
+
+          console.log('result: ', result)
+        } else {
+          const result = await axios.post(apiUrl, data, config)
+          setHandleFormDataId(result.data.url.split('/')[3])
+          setShowTokenSection(true)
+          setDisabledBtn(false)
+
+          console.log('result:', result)
+        }
+      }
+
+      setLoading(false)
+    } catch (err) {
+      setDisabledBtn(false)
+      setLoading(false)
+      setHandleTokenError(err.response.data.error)
+      console.log(err)
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit((data) => {
-      data.ip = IPv4
-      onSubmit(data)
       PushDataLayer()
+      onSubmit(data)
     })} className={`${containerStyle}`}>
       <div>
         { filterData &&
@@ -79,7 +131,7 @@ const RenderForm = (data) => {
               <>
                 <p className={formGroupsStyle}>{group.name}</p>
                 <div className={`${rowStyle}`}>
-                  {!showTokenField &&
+                  {!showTokenSection &&
                     <RenderFields
                       {...data}
                       formFields={group.formData}
@@ -92,18 +144,21 @@ const RenderForm = (data) => {
                   }
                   {filterData.length === index + 1 &&
                   <>
-                    {showTokenField &&
+                    {showTokenSection &&
                         <RenderTokenFields
                           {...data}
+                          handleFormDataId={handleFormDataId}
                           register={register}
                           getValues={getValues}
                           setValue={setValue}
+                          handleTokenError={handleTokenError}
                         />
                       }
                     <RenderBtn
                       {...data}
-                      showTokenField={showTokenField}
+                      showTokenField={showTokenSection}
                       disabledBtn={disabledBtn}
+                      btnLoader={loading}
                     />
                   </>
                   }
@@ -114,7 +169,7 @@ const RenderForm = (data) => {
         }
         { !filterData &&
           <div className={`${rowStyle}`}>
-            {!showTokenField &&
+            {!showTokenSection &&
               <RenderFields
                 {...data}
                 formFields={formData.formTypeField}
@@ -125,18 +180,21 @@ const RenderForm = (data) => {
                 setDisabledBtn={setDisabledBtn}
               />
             }
-            {showTokenField &&
+            {showTokenSection &&
               <RenderTokenFields
                 {...data}
+                handleFormDataId={handleFormDataId}
                 register={register}
                 getValues={getValues}
                 setValue={setValue}
+                handleTokenError={handleTokenError}
               />
             }
             <RenderBtn
               {...data}
-              showTokenField={showTokenField}
+              showTokenField={showTokenSection}
               disabledBtn={disabledBtn}
+              btnLoader={loading}
             />
           </div>
         }

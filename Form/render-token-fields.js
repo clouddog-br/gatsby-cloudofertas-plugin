@@ -3,7 +3,7 @@ import axios from 'axios'
 import ReactCodeInput from 'react-verification-code-input'
 
 const RenderTokenFields = ({
-  formDataId,
+  handleFormDataId,
   inputTokenStyle,
   register,
   getValues,
@@ -18,7 +18,7 @@ const RenderTokenFields = ({
       }
     }
 
-    const urlApiToken = `${process.env.GATSBY_CLOUDOFERTAS_API_URL}/sites/${process.env.GATSBY_CLOUDOFERTAS_SITE_ID}/form-data/${formDataId}/reesendToken`
+    const urlApiToken = `${process.env.GATSBY_CLOUDOFERTAS_API_URL}/sites/${process.env.GATSBY_CLOUDOFERTAS_SITE_ID}/form-data/${handleFormDataId}/reesendToken`
     await axios.patch(urlApiToken, getValues(), config)
     setReesendStatus(true)
     setTimeout(() => {
