@@ -291,20 +291,30 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type CloudOfertasOferta implements Node {
       id: Int
+      linkBanner: String
       category: CloudOfertasCategoria
       format: Int
       image: String
       startDate: Date
       finishDate: Date
+      brand: CloudOfertasBrand
       order: Int
       tag: String
       ownBrand: Boolean
       specialOffers: Boolean
     }
 
+    type CloudOfertasBrand implements Node {
+      id: String
+      name: String
+    }
+
     type CloudOfertasCategoria implements Node {
       id: Int
       name: String
+      type: String
+      tag: String
+      brand: [CloudOfertasBrand]
       icon: File @link
       sequence: Int
       createdDate: Date
@@ -324,8 +334,10 @@ exports.createSchemaCustomization = ({ actions }) => {
       name: String
       forward_list: String
       feedback_notification_template: String
-      send_feedback: Boolean
       forward_notification_template: String
+      send_feedback: Boolean
+      has_token: Boolean
+      formGroups: [CloudOfertasFormGroups]
       formTypeField: [CloudOfertasFormFields]
     }
 
@@ -337,7 +349,24 @@ exports.createSchemaCustomization = ({ actions }) => {
       required: Boolean
       style: String
       type: String
+      mask: String
+      extension: String
       formLov:CloudOfertasFormLov
+      formTerms:CloudOfertasFormTerms
+      formGroups:CloudOfertasFormGroups
+    }
+
+    type CloudOfertasFormTerms implements Node {
+      id: String
+      name: String
+      contract: String
+      version: String
+    }
+
+    type CloudOfertasFormGroups implements Node {
+      id: String
+      name: String
+      order: String
     }
 
     type CloudOfertasFormLov implements Node {
