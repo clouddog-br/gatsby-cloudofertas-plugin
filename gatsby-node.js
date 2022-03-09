@@ -291,20 +291,30 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type CloudOfertasOferta implements Node {
       id: Int
+      linkBanner: String
       category: CloudOfertasCategoria
       format: Int
       image: String
       startDate: Date
       finishDate: Date
+      brand: CloudOfertasBrand
       order: Int
       tag: String
       ownBrand: Boolean
       specialOffers: Boolean
     }
 
+    type CloudOfertasBrand implements Node {
+      id: String
+      name: String
+    }
+
     type CloudOfertasCategoria implements Node {
       id: Int
       name: String
+      type: String
+      tag: String
+      brand: [CloudOfertasBrand]
       icon: File @link
       sequence: Int
       createdDate: Date
