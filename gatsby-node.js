@@ -21,7 +21,7 @@ const getOptions = pluginOptions => {
   }
 }
 
-async function InfoCloudOfertas(actions, createContentDigest, createNodeId, pluginOptions) {
+async function InfoCloudOfertas (actions, createContentDigest, createNodeId, pluginOptions) {
   const { createNode } = actions
 
   let url
@@ -54,6 +54,11 @@ async function InfoCloudOfertas(actions, createContentDigest, createNodeId, plug
     if (data.tabloides.length > 0) {
       data.tabloides.forEach(tabloide => {
         createNodeHandler(createNode, createNodeId, createContentDigest, tabloide, 'CloudOfertasTabloide')
+        if (tabloide.offer.length > 0) {
+          tabloide.offer.forEach(oferta => {
+            createNodeHandler(createNode, createNodeId, createContentDigest, oferta, 'CloudOfertasOferta')
+          })
+        }
       })
     }
     if (data.categories.length > 0) {
@@ -71,7 +76,7 @@ async function InfoCloudOfertas(actions, createContentDigest, createNodeId, plug
   }
 }
 
-function createNodeHandler(createNode, createNodeId, createContentDigest, item, type) {
+function createNodeHandler (createNode, createNodeId, createContentDigest, item, type) {
   createNode({
     // id: createNodeId(item.id),
     ...item,
@@ -87,7 +92,7 @@ function createNodeHandler(createNode, createNodeId, createContentDigest, item, 
 
 /* Create Images */
 exports.onCreateNode = async ({
-  actions: { createNode },
+  actions: { createNode, createNodeField },
   getCache,
   createNodeId,
   node
@@ -102,7 +107,7 @@ exports.onCreateNode = async ({
         createNodeId,
         parentNodeId: node.id
       })
-      node.banner = banner.id
+      createNodeField({ node, name: 'banner', value: banner.id })
     }
     if (node.mobileBanner) {
       mobileBanner = await createRemoteFileNode({
@@ -112,7 +117,7 @@ exports.onCreateNode = async ({
         createNodeId,
         parentNodeId: node.id
       })
-      node.mobileBanner = mobileBanner.id
+      createNodeField({ node, name: 'mobileBanner', value: mobileBanner.id })
     }
   }
   if (node.internal.type === 'CloudOfertasLoja') {
@@ -125,24 +130,40 @@ exports.onCreateNode = async ({
         createNodeId,
         parentNodeId: node.id
       })
-      node.image = loja.id
+      createNodeField({ node, name: 'image', value: loja.id })
     }
   }
-  // if (node.internal.type === 'CloudOfertasTabloide') {
-  //   node.offer.forEach(off => {
-  //     let imagem
-  //     if (off.image) {
-  //       imagem = await createRemoteFileNode({
-  //         url: off.image,
-  //         getCache,
-  //         createNode,
-  //         createNodeId,
-  //         parentNodeId: off.id
-  //       })
-  //       off.image = imagem.id
-  //     }
-  //   })
-  // }
+
+  if (node.internal.type === 'CloudOfertasOferta') {
+    let oferta
+    if (node.image) {
+      oferta = await createRemoteFileNode({
+        url: node.image,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
+      createNodeField({ node, name: 'image', value: oferta.id })
+    }
+  }
+
+  if (node.internal.type === 'CloudOfertasTabloide') {
+    node.offer.forEach(async off => {
+      let oferta
+      if (off.image) {
+        oferta = await createRemoteFileNode({
+          url: off.image,
+          getCache,
+          createNode,
+          createNodeId,
+          parentNodeId: off.id
+        })
+        createNodeField({ node, name: 'localFile', value: oferta.id })
+      }
+    })
+  }
+
   if (node.internal.type === 'CloudOfertasCategoria') {
     let categoria
     if (node.icon) {
@@ -153,7 +174,7 @@ exports.onCreateNode = async ({
         createNodeId,
         parentNodeId: node.id
       })
-      node.icon = categoria.id
+      createNodeField({ node, name: 'icon', value: categoria.id })
     }
   }
 }
@@ -181,8 +202,8 @@ exports.createSchemaCustomization = ({ actions }) => {
     type CloudOfertasBanner implements Node {
       id: Int
       active: Boolean
-      banner: File @link
-      mobileBanner: File @link
+      banner: File @link(from: "fields.banner")
+      mobileBanner: File @link(from: "fields.mobileBanner")
       startDate: Date
       finishDate: Date
       title: String
@@ -204,7 +225,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       cep: String
       lat: String
       lng: String
-      image: File @link
+      image: File @link(from: "fields.image")
       fone1: String
       fone2: String
       slug: String
@@ -280,7 +301,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       finishDate: Date
       legalText: String
       status: String
-      offer: [CloudOfertasOferta]
+      offer: [CloudOfertasOferta] @link(from: "offer.id" by: "id")
       createdDate: Date
       finishDate: Date
       legalText: String
@@ -292,9 +313,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     type CloudOfertasOferta implements Node {
       id: Int
       linkBanner: String
-      category: CloudOfertasCategoria
+      category: CloudOfertasCategoria @link(from: "category.id" by: "id")
       format: Int
-      image: String
+      image: File @link(from: "fields.image")
       startDate: Date
       finishDate: Date
       brand: CloudOfertasBrand
@@ -315,7 +336,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       type: String
       tag: String
       brand: [CloudOfertasBrand]
-      icon: File @link
+      icon: File @link(from: "fields.icon")
       sequence: Int
       createdDate: Date
       updatedDate: Date
