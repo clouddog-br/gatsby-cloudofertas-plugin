@@ -35,14 +35,14 @@ const RenderTokenFields = ({
       <ReactCodeInput
         onChange={(e) => setValue('token', e)}
       />
-      <small>{ handleTokenError }</small>
-      { handleTokenError && !reesendStatus &&
+      <small>{handleTokenError}</small>
+      {handleTokenError && !reesendStatus &&
         <span onClick={reesendToken}>reenviar código</span>
       }
-      { reesendStatus &&
+      {reesendStatus &&
         <p>Codigo Reenviado</p>
       }
-  </div>
+    </div>
   )
 }
 

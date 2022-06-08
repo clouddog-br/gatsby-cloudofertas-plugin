@@ -11,7 +11,7 @@ const Select = ({ field, list, register, errors }) => {
         className={`${errors[field.name] ? 'error' : ''}`}
         defaultValue={''}
       >
-        <option value='' disabled> { field.label } </option>
+        <option value='' disabled> {field.label} </option>
         {list.map((item, index) => {
           return (
             <option key={`${field.name}-option-${index}`}>{item.value}</option>

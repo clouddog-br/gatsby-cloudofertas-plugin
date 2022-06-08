@@ -19,6 +19,7 @@ const RenderForm = (data) => {
     rowStyle,
     errorLabel,
     getWatch,
+    newValue,
     watchTokenSection
   } = data
 
@@ -39,6 +40,12 @@ const RenderForm = (data) => {
   if (getWatch !== undefined) {
     useEffect(() => {
       getWatch(watch())
+    })
+  }
+
+  if (newValue !== undefined) {
+    useEffect(() => {
+      newValue(setValue)
     })
   }
 
@@ -173,7 +180,7 @@ const RenderForm = (data) => {
             )
           })
         }
-        { !filterData &&
+        {!filterData &&
           <div className={`${rowStyle}`}>
             {!showTokenSection &&
               <RenderFields

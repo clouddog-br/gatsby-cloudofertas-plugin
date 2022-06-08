@@ -34,7 +34,7 @@ const RenderFields = ({
 
   if (process.env.IBGE !== undefined) {
     useEffect(() => {
-      async function getEstados () {
+      async function getEstados() {
         await fetch(`${process.env.IBGE}/estados`)
           .then(res => res.json())
           .then(res => setUfs(sortValues(res, 'sigla')))

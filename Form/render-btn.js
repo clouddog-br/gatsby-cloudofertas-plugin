@@ -19,14 +19,14 @@ const RenderBtn = ({
       <button disabled={!!(disabledBtn || disabledButton)} type='submit' className={btnStyle}>
         {btnLoader === true
           ? <div className={btnLoaderContainer}>
-              <ClipLoader
-                size={btnLoaderSize}
-                color={btnLoaderColor}
-              />
-              <span>
-                {btnLoaderLabel}
-              </span>
-            </div>
+            <ClipLoader
+              size={btnLoaderSize}
+              color={btnLoaderColor}
+            />
+            <span>
+              {btnLoaderLabel}
+            </span>
+          </div>
           : showTokenField ? 'Confirmar' : btnName}
       </button>
     </div>
