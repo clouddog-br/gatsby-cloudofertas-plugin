@@ -33,7 +33,7 @@ const RenderFields = ({
   const [districts, setDistricts] = useState([])
 
   const handleStateSelected = (estado) => {
-    const selectedUf = localidades.estados.filter((uf) => uf.nome === estado)[0]
+    const selectedUf = localidades.estados.filter((uf) => (uf.nome === estado || uf.sigla === estado))[0]
     setDistricts(selectedUf.cidades)
   }
 
