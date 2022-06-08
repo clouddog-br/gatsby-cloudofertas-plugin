@@ -91,12 +91,16 @@ const RenderForm = (data) => {
 
       if (!formData.has_token) {
         const result = await axios.post(apiUrl, data, config)
-        setSuccessSubmit(true)
+        if (setSuccessSubmit !== undefined) {
+          setSuccessSubmit(true)
+        }
         console.log('result:', result)
       } else {
         if (showTokenSection) {
           const result = await axios.patch(apiUrlToken, { token: data.token }, config)
-          setSuccessSubmit(true)
+          if (setSuccessSubmit !== undefined) {
+            setSuccessSubmit(true)
+          }
           setDisabledBtn(false)
 
           console.log('result: ', result)
@@ -114,7 +118,9 @@ const RenderForm = (data) => {
     } catch (err) {
       setDisabledBtn(false)
       setLoading(false)
-      setHandleTokenError(err.response.data.error)
+      if (!formData.has_token) {
+        setHandleTokenError(err.response.data.error)
+      }
       console.log(err)
     }
   }
@@ -125,7 +131,7 @@ const RenderForm = (data) => {
       onSubmit(data)
     })} className={`${containerStyle}`}>
       <div>
-        { filterData &&
+        {filterData &&
           filterData.map((group, index) => {
             return (
               <>
@@ -143,8 +149,8 @@ const RenderForm = (data) => {
                     />
                   }
                   {filterData.length === index + 1 &&
-                  <>
-                    {showTokenSection &&
+                    <>
+                      {showTokenSection &&
                         <RenderTokenFields
                           {...data}
                           handleFormDataId={handleFormDataId}
@@ -154,13 +160,13 @@ const RenderForm = (data) => {
                           handleTokenError={handleTokenError}
                         />
                       }
-                    <RenderBtn
-                      {...data}
-                      showTokenField={showTokenSection}
-                      disabledBtn={disabledBtn}
-                      btnLoader={loading}
-                    />
-                  </>
+                      <RenderBtn
+                        {...data}
+                        showTokenField={showTokenSection}
+                        disabledBtn={disabledBtn}
+                        btnLoader={loading}
+                      />
+                    </>
                   }
                 </div>
               </>

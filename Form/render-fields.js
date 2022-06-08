@@ -14,6 +14,7 @@ import Terms from './terms'
 
 const RenderFields = ({
   formFields,
+  customFields,
   inputStyle,
   inputSearchStyle,
   modalStyle,
@@ -57,135 +58,146 @@ const RenderFields = ({
           switch (field.type) {
             case 'select':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <Select
-                  field={field}
-                  list={field.formLov.formLovData}
-                  register={register}
-                  errors={errors}
-                />
-                {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Select
+                    field={field}
+                    list={field.formLov.formLovData}
+                    register={register}
+                    errors={errors}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'state':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <State
-                  ufs={ufs}
-                  field={field}
-                  register={register}
-                  handleState={handleStateSelected}
-                  errors={errors}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <State
+                    ufs={ufs}
+                    field={field}
+                    register={register}
+                    handleState={handleStateSelected}
+                    errors={errors}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'city':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <City
-                  districts={districts}
-                  field={field}s
-                  register={register}
-                  errors={errors}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <City
+                    districts={districts}
+                    field={field} s
+                    register={register}
+                    errors={errors}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'phone':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <Phone
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  placeholder={placeholder}
-                  errorLabel={errorLabel}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Phone
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'textarea':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <TextArea
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  placeholder={placeholder}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <TextArea
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'checkbox':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <Checkbox
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  placeholder={placeholder}
-                  errorLabel={errorLabel}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Checkbox
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'inputmask':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <Mask
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  placeholder={placeholder}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Mask
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'upload':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputSearchStyle} ${field.style}`}>
-                <Upload
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  errorLabel={errorLabel}
-                  setValue={setValue}
-                  setDisabledBtn={setDisabledBtn}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputSearchStyle} ${field.style}`}>
+                  <Upload
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    errorLabel={errorLabel}
+                    setValue={setValue}
+                    setDisabledBtn={setDisabledBtn}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
             case 'terms':
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <Terms
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  placeholder={placeholder}
-                  getValues={getValues}
-                  setValue={setValue}
-                  errorLabel={errorLabel}
-                  modalStyle={modalStyle}
-                  modalCheckBoxStyle={modalCheckBoxStyle}
-                />
-                {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Terms
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    getValues={getValues}
+                    setValue={setValue}
+                    errorLabel={errorLabel}
+                    modalStyle={modalStyle}
+                    modalCheckBoxStyle={modalCheckBoxStyle}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
+              )
+            case 'customfield':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  {customFields[field.name](
+                    field,
+                    register,
+                    errors,
+                    setValue
+                  )}
+                </div>
               )
             case 'input':
             default:
               return (
-              <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-                <Field
-                  field={field}
-                  register={register}
-                  errors={errors}
-                  placeholder={placeholder}
-                  errorLabel={errorLabel}
-                />
-                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatatório</small>}
-              </div>
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Field
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
               )
           }
         })
