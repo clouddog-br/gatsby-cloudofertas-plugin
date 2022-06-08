@@ -32,8 +32,8 @@ const RenderFields = ({
 }) => {
   const [districts, setDistricts] = useState([])
 
-  const handleStateSelected = (event) => {
-    const selectedUf = localidades.estados.filter((uf) => uf.nome === event.target.value)[0]
+  const handleStateSelected = (estado) => {
+    const selectedUf = localidades.estados.filter((uf) => uf.nome === estado)[0]
     setDistricts(selectedUf.cidades)
   }
 
@@ -167,7 +167,8 @@ const RenderFields = ({
                     field,
                     register,
                     errors,
-                    setValue
+                    setValue,
+                    handleStateSelected
                   )}
                 </div>
               )

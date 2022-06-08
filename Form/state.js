@@ -8,7 +8,7 @@ const State = ({ ufs, field, register, handleState, errors }) => {
         id={field.name}
         name={field.name}
         {...register(field.name, {
-          onChange: (e) => { handleState(e) },
+          onChange: (e) => { handleState(e.target.value) },
           required: field.required,
           maxLength: field.length !== null && field.length
         })}
@@ -20,7 +20,7 @@ const State = ({ ufs, field, register, handleState, errors }) => {
           ufs.map(uf => {
             uf.concat = uf.sigla + ' - ' + uf.nome
             return (
-              <option value={uf.nome} key={uf.sigla}>
+              <option value={uf.sigla} key={uf.sigla}>
                 {uf.concat}
               </option>
             )
