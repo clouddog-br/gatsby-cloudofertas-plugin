@@ -20,7 +20,7 @@ const State = ({ ufs, field, register, handleState, errors }) => {
           ufs.map(uf => {
             uf.concat = uf.sigla + ' - ' + uf.nome
             return (
-              <option value={uf.sigla} key={uf.id}>
+              <option value={uf.nome} key={uf.sigla}>
                 {uf.concat}
               </option>
             )

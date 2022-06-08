@@ -141,7 +141,7 @@ const RenderForm = (data) => {
         {filterData &&
           filterData.map((group, index) => {
             return (
-              <>
+              <div key={index}>
                 <p className={formGroupsStyle}>{group.name}</p>
                 <div className={`${rowStyle}`}>
                   {!showTokenSection &&
@@ -176,7 +176,7 @@ const RenderForm = (data) => {
                     </>
                   }
                 </div>
-              </>
+              </div>
             )
           })
         }

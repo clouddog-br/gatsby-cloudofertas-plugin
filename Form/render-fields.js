@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 /* COMPONENTS */
 import Field from './input'
@@ -11,6 +11,9 @@ import Checkbox from './checkbox'
 import Upload from './upload'
 import Mask from './inputmask'
 import Terms from './terms'
+
+/* JSON */
+import localidades from '../utils/estados-cidades.json'
 
 const RenderFields = ({
   formFields,
@@ -27,28 +30,11 @@ const RenderFields = ({
   errors,
   setDisabledBtn
 }) => {
-  const [ufs, setUfs] = useState([])
   const [districts, setDistricts] = useState([])
 
-  const sortValues = (object, field) => (object.sort((a, b) => (a[field] > b[field]) ? 1 : ((b[field] > a[field]) ? -1 : 0)))
-
-  if (process.env.IBGE !== undefined) {
-    useEffect(() => {
-      async function getEstados() {
-        await fetch(`${process.env.IBGE}/estados`)
-          .then(res => res.json())
-          .then(res => setUfs(sortValues(res, 'sigla')))
-      }
-      getEstados()
-    }, [])
-  }
-
   const handleStateSelected = (event) => {
-    const index = ufs.findIndex(value => value.sigla === event.target.value)
-    const state = ufs[index]
-    fetch(`${process.env.IBGE}/estados/${state.id}/municipios`)
-      .then(res => res.json())
-      .then(res => setDistricts(sortValues(res, 'nome')))
+    const selectedUf = localidades.estados.filter((uf) => uf.nome === event.target.value)[0]
+    setDistricts(selectedUf.cidades)
   }
 
   return (
@@ -72,7 +58,7 @@ const RenderFields = ({
               return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <State
-                    ufs={ufs}
+                    ufs={localidades.estados}
                     field={field}
                     register={register}
                     handleState={handleStateSelected}
@@ -86,7 +72,7 @@ const RenderFields = ({
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
                   <City
                     districts={districts}
-                    field={field} s
+                    field={field}
                     register={register}
                     errors={errors}
                   />

@@ -15,8 +15,8 @@ const City = ({ districts, field, register, errors }) => {
         {
           districts.map(district => {
             return (
-              <option value={district.nome} key={district.id}>
-                {district.nome}
+              <option value={district} key={district}>
+                {district}
               </option>
             )
           })
