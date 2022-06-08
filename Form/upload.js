@@ -41,7 +41,7 @@ const Upload = ({ field, register, errors, setValue, setDisabledBtn }) => {
 
     const regex = new RegExp(field.extension)
 
-    if (regex.test(file)) {
+    if (regex.test(file.toLowerCase())) {
       return true
     } else {
       return false
