@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 /* COMPONENTS */
 import Field from './input'
+import Email from './email'
 import Select from './select'
 import State from './state'
 import City from './city'
@@ -170,6 +171,19 @@ const RenderFields = ({
                     setValue,
                     handleStateSelected
                   )}
+                </div>
+              )
+            case 'inputemail':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Email
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    errorLabel={errorLabel}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>{errors[field.name].message}</small>}
                 </div>
               )
             case 'input':
