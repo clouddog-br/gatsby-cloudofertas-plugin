@@ -358,6 +358,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       forward_notification_template: String
       send_feedback: Boolean
       has_token: Boolean
+      has_rdstation: Boolean
       formGroups: [CloudOfertasFormGroups]
       formTypeField: [CloudOfertasFormFields]
     }
