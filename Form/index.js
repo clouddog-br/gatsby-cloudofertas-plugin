@@ -20,7 +20,8 @@ const RenderForm = (data) => {
     errorLabel,
     getWatch,
     newValue,
-    watchTokenSection
+    watchTokenSection,
+    queryString
   } = data
 
   const { handleSubmit, register, setValue, getValues, formState: { errors }, watch } = useForm()
@@ -92,6 +93,20 @@ const RenderForm = (data) => {
         }
       }
 
+      if (formData.has_rdstation && queryString) {
+        const jsonUTM = {}
+
+        queryString.split('?')[1].split('&').map(item => {
+          const splitedItem = item.split('=')
+          jsonUTM[splitedItem[0]] = splitedItem[1]
+        })
+
+        data.traffic_source = jsonUTM.utm_source
+        data.traffic_medium = jsonUTM.utm_medium
+        data.traffic_campaign = jsonUTM.utm_campaign
+        data.traffic_value = jsonUTM.utm_term
+      }
+
       if (terms !== undefined) {
         data.termos = terms.formTerms.version
       }
@@ -125,7 +140,7 @@ const RenderForm = (data) => {
     } catch (err) {
       setDisabledBtn(false)
       setLoading(false)
-      if (!formData.has_token) {
+      if (formData.has_token) {
         setHandleTokenError(err.response.data.error)
       }
       console.log(err)
