@@ -107,6 +107,10 @@ const RenderForm = (data) => {
         data.traffic_value = jsonUTM.utm_term
       }
 
+      if( document.referrer ) {
+        data.referrer = document.referrer
+      }
+
       if (terms !== undefined) {
         data.termos = terms.formTerms.version
       }
