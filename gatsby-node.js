@@ -308,6 +308,14 @@ exports.createSchemaCustomization = ({ actions }) => {
       startDate: Date
       status: String
       tariff: CloudOfertasTarifa
+      timeToShow: Date
+      offerGroup: CloudOfertasOfferGroup
+    }
+
+    type CloudOfertasOfferGroup implements Node {
+      id: String
+      name: String
+      timeToShow: string
     }
 
     type CloudOfertasOferta implements Node {
