@@ -336,6 +336,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type CloudOfertasBrand implements Node {
       id: String
       name: String
+      image: File @link(from: "fields.image")
     }
 
     type CloudOfertasCategoria implements Node {
