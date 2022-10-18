@@ -57,6 +57,7 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
         if (tabloide.offer.length > 0) {
           tabloide.offer.forEach(oferta => {
             createNodeHandler(createNode, createNodeId, createContentDigest, oferta, 'CloudOfertasOferta')
+            createNodeHandler(createNode, createNodeId, createContentDigest, oferta.brand, 'CloudOfertasBrand')
           })
         }
       })
