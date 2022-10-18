@@ -177,6 +177,20 @@ exports.onCreateNode = async ({
       createNodeField({ node, name: 'icon', value: categoria.id })
     }
   }
+
+  if (node.internal.type === 'CloudOfertasBrand') {
+    let brandImage
+    if (node.image) {
+      brandImage = await createRemoteFileNode({
+        url: node.image,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
+      createNodeField({ node, name: 'image', value: brandImage.id })
+    }
+  }
 }
 
 exports.sourceNodes = async ({
