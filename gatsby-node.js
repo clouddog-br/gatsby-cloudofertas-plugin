@@ -21,7 +21,7 @@ const getOptions = pluginOptions => {
   }
 }
 
-async function InfoCloudOfertas (actions, createContentDigest, createNodeId, pluginOptions) {
+async function InfoCloudOfertas(actions, createContentDigest, createNodeId, pluginOptions) {
   const { createNode } = actions
 
   let url
@@ -57,7 +57,9 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
         if (tabloide.offer.length > 0) {
           tabloide.offer.forEach(oferta => {
             createNodeHandler(createNode, createNodeId, createContentDigest, oferta, 'CloudOfertasOferta')
-            createNodeHandler(createNode, createNodeId, createContentDigest, oferta.brand, 'CloudOfertasBrand')
+            if (oferta.brand) {
+              createNodeHandler(createNode, createNodeId, createContentDigest, oferta.brand, 'CloudOfertasBrand')
+            }
           })
         }
       })
@@ -77,7 +79,7 @@ async function InfoCloudOfertas (actions, createContentDigest, createNodeId, plu
   }
 }
 
-function createNodeHandler (createNode, createNodeId, createContentDigest, item, type) {
+function createNodeHandler(createNode, createNodeId, createContentDigest, item, type) {
   createNode({
     // id: createNodeId(item.id),
     ...item,
@@ -330,7 +332,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type CloudOfertasOfferGroup implements Node {
       id: String
       name: String
-      timeToShow: string
+      timeToShow: Date
     }
 
     type CloudOfertasOferta implements Node {
@@ -341,7 +343,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       image: File @link(from: "fields.image")
       startDate: Date
       finishDate: Date
-      brand: CloudOfertasBrand
+      brand: CloudOfertasBrand @link(from: "brand.id" by: "id")
       order: Int
       tag: String
       ownBrand: Boolean
