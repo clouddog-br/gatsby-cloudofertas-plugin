@@ -27,7 +27,7 @@ async function InfoCloudOfertas(actions, createContentDigest, createNodeId, plug
   let url
 
   if (pluginOptions.environment === 'dev') {
-    url = `https://api-cloudofertas.dev.clouddog.com.br/organization/sites/${pluginOptions.siteId}/build`
+    url = `https://6x0lmgbnfe.execute-api.sa-east-1.amazonaws.com/sites/${pluginOptions.siteId}/build`
   } else if (pluginOptions.environment === 'prd') {
     url = `https://api.cloudofertas.com.br/organization/sites/${pluginOptions.siteId}/build`
   }
