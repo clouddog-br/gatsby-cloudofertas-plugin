@@ -74,6 +74,11 @@ async function InfoCloudOfertas(actions, createContentDigest, createNodeId, plug
         createNodeHandler(createNode, createNodeId, createContentDigest, form, 'CloudOfertasForm')
       })
     }
+    if (data.tarifas.length > 0) {
+      data.tarifas.forEach(tarifa => {
+        createNodeHandler(createNode, createNodeId, createContentDigest, tarifa, 'CloudOfertasTarifa')
+      })
+    }
   } catch (err) {
     console.log('> CloudOfertas Plugin Error =>', err)
   }
