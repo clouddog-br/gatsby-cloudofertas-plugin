@@ -332,7 +332,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       tariff: CloudOfertasTarifa
       timeToShow: Date
       offerGroup: CloudOfertasOfferGroup
-      highlight: boolean
+      highlight: Boolean
     }
 
     type CloudOfertasOfferGroup implements Node {
