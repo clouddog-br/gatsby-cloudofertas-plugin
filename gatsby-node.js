@@ -331,6 +331,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       status: String
       tariff: CloudOfertasTarifa
       timeToShow: Date
+      timeToHide: Date
       offerGroup: CloudOfertasOfferGroup
       highlight: Boolean
     }
