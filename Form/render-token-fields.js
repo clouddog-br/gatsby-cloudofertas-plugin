@@ -1,6 +1,8 @@
+
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import axios from 'axios'
-import ReactCodeInput from 'react-verification-code-input'
+import ReactCodeInput from 'react-code-input'
 
 const RenderTokenFields = ({
   handleFormDataId,
@@ -32,9 +34,7 @@ const RenderTokenFields = ({
     <div className={inputTokenStyle}>
       <h3>Autenticação</h3>
       <p>Enviamos um token de autenticação para o seu e-mail. Por favor, insira o código para finalizar a sua solicitação.</p>
-      <ReactCodeInput
-        onChange={(e) => setValue('token', e)}
-      />
+      <ReactCodeInput type='tel' fields={6} onChange={(e) => setValue('token', e)}/>
       <small>{handleTokenError}</small>
       {handleTokenError && !reesendStatus &&
         <span onClick={reesendToken}>reenviar código</span>
