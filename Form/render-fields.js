@@ -13,7 +13,6 @@ import Upload from './upload'
 import Mask from './inputmask'
 import Terms from './terms'
 
-
 /* JSON */
 import localidades from '../utils/estados-cidades.json'
 
