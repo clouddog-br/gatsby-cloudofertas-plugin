@@ -21,7 +21,7 @@ const getOptions = pluginOptions => {
   }
 }
 
-async function InfoCloudOfertas(actions, createContentDigest, createNodeId, pluginOptions) {
+async function InfoCloudOfertas (actions, createContentDigest, createNodeId, pluginOptions) {
   const { createNode } = actions
 
   let url
@@ -49,6 +49,11 @@ async function InfoCloudOfertas(actions, createContentDigest, createNodeId, plug
     if (data.lojas.length > 0) {
       data.lojas.forEach(loja => {
         createNodeHandler(createNode, createNodeId, createContentDigest, loja, 'CloudOfertasLoja')
+      })
+    }
+    if (data.inauguracaoLojas.length > 0) {
+      data.inauguracaoLojas.forEach(inauguracaoLojas => {
+        createNodeHandler(createNode, createNodeId, createContentDigest, inauguracaoLojas, 'CloudOfertasInauguracaoLoja')
       })
     }
     if (data.tabloides.length > 0) {
@@ -84,7 +89,7 @@ async function InfoCloudOfertas(actions, createContentDigest, createNodeId, plug
   }
 }
 
-function createNodeHandler(createNode, createNodeId, createContentDigest, item, type) {
+function createNodeHandler (createNode, createNodeId, createContentDigest, item, type) {
   createNode({
     // id: createNodeId(item.id),
     ...item,
@@ -139,6 +144,19 @@ exports.onCreateNode = async ({
         parentNodeId: node.id
       })
       createNodeField({ node, name: 'image', value: loja.id })
+    }
+  }
+  if (node.internal.type === 'CloudOfertasInauguracaoLoja') {
+    let inauguracaoLojas
+    if (node.image) {
+      inauguracaoLojas = await createRemoteFileNode({
+        url: node.image,
+        getCache,
+        createNode,
+        createNodeId,
+        parentNodeId: node.id
+      })
+      createNodeField({ node, name: 'image', value: inauguracaoLojas.id })
     }
   }
 
@@ -306,6 +324,24 @@ exports.createSchemaCustomization = ({ actions }) => {
       holidayOpen: String
       holidayClose: String
       status: Boolean
+    }
+
+    type CloudOfertasInauguracaoLoja implements Node {
+      id: Int
+      name: String
+      reference: String
+      address: String
+      district: String
+      custom_phrase: String
+      observation: String
+      city: String
+      uf: String
+      cep: String
+      lat: String
+      lng: String
+      image: File @link(from: "fields.image")
+      slug: String
+      status_inauguration: Boolean
     }
 
     type CloudOfertasServico implements Node {
