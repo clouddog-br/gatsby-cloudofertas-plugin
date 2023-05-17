@@ -333,6 +333,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       address: String
       district: String
       custom_phrase: String
+      offer_url: String
       observation: String
       city: String
       uf: String
