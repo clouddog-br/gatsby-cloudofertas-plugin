@@ -343,6 +343,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       image: File @link(from: "fields.image")
       slug: String
       status_inauguration: Boolean
+      flg_link: Boolean
     }
 
     type CloudOfertasServico implements Node {
