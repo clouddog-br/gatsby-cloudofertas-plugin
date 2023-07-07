@@ -344,6 +344,9 @@ exports.createSchemaCustomization = ({ actions }) => {
       slug: String
       status_inauguration: Boolean
       flg_link: Boolean
+      step_one: String
+      step_two: String
+      step_three: String
     }
 
     type CloudOfertasServico implements Node {
