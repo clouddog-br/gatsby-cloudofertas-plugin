@@ -392,6 +392,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       send_feedback: Boolean
       has_token: Boolean
       has_rdstation: Boolean
+      has_zoho: Boolean
       formGroups: [CloudOfertasFormGroups]
       formTypeField: [CloudOfertasFormFields]
     }
