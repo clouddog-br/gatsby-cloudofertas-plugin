@@ -107,7 +107,7 @@ const RenderForm = (data) => {
         data.traffic_value = jsonUTM.utm_term
       }
 
-      if( document.referrer ) {
+      if (document.referrer) {
         data.referrer = document.referrer
       }
 
@@ -230,6 +230,7 @@ const RenderForm = (data) => {
             />
           </div>
         }
+        {formData.has_zoho && <input type='hidden' id="zc_gad" name="zc_gad" value="" {...register('zoho')} />}
       </div>
     </form>
   )
