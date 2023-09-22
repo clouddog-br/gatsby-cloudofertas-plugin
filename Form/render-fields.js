@@ -11,7 +11,7 @@ import TextArea from './textarea'
 import Checkbox from './checkbox'
 import Upload from './upload'
 import Mask from './inputmask'
-// import Terms from './terms'
+import Terms from './terms'
 
 /* JSON */
 import localidades from '../utils/estados-cidades.json'
@@ -144,23 +144,23 @@ const RenderFields = ({
                   {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
                 </div>
               )
-            // case 'terms':
-            //   return (
-            //     <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
-            //       <Terms
-            //         field={field}
-            //         register={register}
-            //         errors={errors}
-            //         placeholder={placeholder}
-            //         getValues={getValues}
-            //         setValue={setValue}
-            //         errorLabel={errorLabel}
-            //         modalStyle={modalStyle}
-            //         modalCheckBoxStyle={modalCheckBoxStyle}
-            //       />
-            //       {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
-            //     </div>
-            //   )
+            case 'terms':
+              return (
+                <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
+                  <Terms
+                    field={field}
+                    register={register}
+                    errors={errors}
+                    placeholder={placeholder}
+                    getValues={getValues}
+                    setValue={setValue}
+                    errorLabel={errorLabel}
+                    modalStyle={modalStyle}
+                    modalCheckBoxStyle={modalCheckBoxStyle}
+                  />
+                  {errorLabel === 'bottom' && errors[field.name] && <small>Campo obrigatório</small>}
+                </div>
+              )
             case 'customfield':
               return (
                 <div key={`${field.id}-${index}`} className={`${inputStyle} ${field.style}`}>
