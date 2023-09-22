@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
@@ -151,6 +152,16 @@ const RenderForm = (data) => {
     }
   }
 
+  function getGclid() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var gclid = urlParams.get('gclid');
+    return gclid;
+  }
+  
+  // Exemplo de uso
+  var gclidValue = getGclid();
+  setValue('gclid', gclidValue);
+
   return (
     <form onSubmit={handleSubmit((data) => {
       PushDataLayer()
@@ -230,7 +241,7 @@ const RenderForm = (data) => {
             />
           </div>
         }
-        {formData.has_zoho && <input type='hidden' id="zc_gad" name="zc_gad" value="" {...register('zoho')} />}
+        {formData.has_zoho && <input type='hidden' id="zc_gad" name="zc_gad" value="" {...register('gclid')} />}
       </div>
     </form>
   )
