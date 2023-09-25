@@ -51,6 +51,17 @@ const RenderForm = (data) => {
     })
   }
 
+  function getGclid() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var gclid = urlParams.get('gclid');
+    return gclid;
+  }
+
+  useEffect(() => {
+    var gclidValue = getGclid();
+    setValue('gclid', gclidValue);
+  })
+
   if (watchTokenSection !== undefined) {
     watchTokenSection(showTokenSection)
   }
@@ -151,16 +162,6 @@ const RenderForm = (data) => {
       console.log(err)
     }
   }
-
-  function getGclid() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var gclid = urlParams.get('gclid');
-    return gclid;
-  }
-  
-  // Exemplo de uso
-  var gclidValue = getGclid();
-  setValue('gclid', gclidValue);
 
   return (
     <form onSubmit={handleSubmit((data) => {
