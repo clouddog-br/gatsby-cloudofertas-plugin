@@ -50,16 +50,38 @@ const RenderForm = (data) => {
       newValue(setValue)
     })
   }
-
-  function getGclid() {
+  
+  function getCampaignAttributes() {
     var urlParams = new URLSearchParams(window.location.search);
     var gclid = urlParams.get('gclid');
-    return gclid;
+    var utm_source = urlParams.get('utm_source');
+    var utm_medium = urlParams.get('utm_medium');
+    var utm_campaign = urlParams.get('utm_campaign');
+    var utm_id = urlParams.get('utm_id');
+    var utm_term = urlParams.get('utm_term');
+    var utm_content = urlParams.get('utm_content');
+    
+
+    return {
+      gclid: gclid,
+      utm_source: utm_source,
+      utm_medium: utm_medium,
+      utm_campaign: utm_campaign,
+      utm_id: utm_id,
+      utm_term: utm_term,
+      utm_content: utm_content
+    }
   }
 
   useEffect(() => {
-    var gclidValue = getGclid();
-    setValue('gclid', gclidValue);
+    var campaignAttributes = getCampaignAttributes();
+    setValue('gclid', campaignAttributes['gclid']);
+    setValue('utm_source', campaignAttributes['utm_source']);
+    setValue('utm_medium', campaignAttributes['utm_medium']);
+    setValue('utm_campaign', campaignAttributes['utm_campaign']);
+    setValue('utm_id', campaignAttributes['utm_id']);
+    setValue('utm_term', campaignAttributes['utm_term']);
+    setValue('utm_content', campaignAttributes['utm_content']);
   })
 
   if (watchTokenSection !== undefined) {
