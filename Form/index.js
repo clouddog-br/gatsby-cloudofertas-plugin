@@ -50,39 +50,39 @@ const RenderForm = (data) => {
       newValue(setValue)
     })
   }
-  
-  function getCampaignAttributes() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var gclid = urlParams.get('gclid');
-    var utm_source = urlParams.get('utm_source');
-    var utm_medium = urlParams.get('utm_medium');
-    var utm_campaign = urlParams.get('utm_campaign');
-    var utm_id = urlParams.get('utm_id');
-    var utm_term = urlParams.get('utm_term');
-    var utm_content = urlParams.get('utm_content');
-    
 
-    return {
-      gclid: gclid,
-      utm_source: utm_source,
-      utm_medium: utm_medium,
-      utm_campaign: utm_campaign,
-      utm_id: utm_id,
-      utm_term: utm_term,
-      utm_content: utm_content
-    }
-  }
+  // function getCampaignAttributes() {
+  //   var urlParams = new URLSearchParams(window.location.search);
+  //   var gclid = urlParams.get('gclid');
+  //   var utm_source = urlParams.get('utm_source');
+  //   var utm_medium = urlParams.get('utm_medium');
+  //   var utm_campaign = urlParams.get('utm_campaign');
+  //   var utm_id = urlParams.get('utm_id');
+  //   var utm_term = urlParams.get('utm_term');
+  //   var utm_content = urlParams.get('utm_content');
 
-  useEffect(() => {
-    var campaignAttributes = getCampaignAttributes();
-    setValue('gclid', campaignAttributes['gclid']);
-    setValue('utm_source', campaignAttributes['utm_source']);
-    setValue('utm_medium', campaignAttributes['utm_medium']);
-    setValue('utm_campaign', campaignAttributes['utm_campaign']);
-    setValue('utm_id', campaignAttributes['utm_id']);
-    setValue('utm_term', campaignAttributes['utm_term']);
-    setValue('utm_content', campaignAttributes['utm_content']);
-  })
+
+  //   return {
+  //     gclid: gclid,
+  //     utm_source: utm_source,
+  //     utm_medium: utm_medium,
+  //     utm_campaign: utm_campaign,
+  //     utm_id: utm_id,
+  //     utm_term: utm_term,
+  //     utm_content: utm_content
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   var campaignAttributes = getCampaignAttributes();
+  //   setValue('gclid', campaignAttributes['gclid']);
+  //   setValue('utm_source', campaignAttributes['utm_source']);
+  //   setValue('utm_medium', campaignAttributes['utm_medium']);
+  //   setValue('utm_campaign', campaignAttributes['utm_campaign']);
+  //   setValue('utm_id', campaignAttributes['utm_id']);
+  //   setValue('utm_term', campaignAttributes['utm_term']);
+  //   setValue('utm_content', campaignAttributes['utm_content']);
+  // })
 
   if (watchTokenSection !== undefined) {
     watchTokenSection(showTokenSection)
@@ -117,6 +117,21 @@ const RenderForm = (data) => {
     }
   }
 
+  function getCookie(k) {
+    var cookies = " " + document.cookie;
+    var key = " " + k + "=";
+    var start = cookies.indexOf(key);
+
+    if (start === -1) return null;
+
+    var pos = start + key.length;
+    var last = cookies.indexOf(";", pos);
+
+    if (last !== -1) return cookies.substring(pos, last);
+
+    return cookies.substring(pos);
+}
+
   const onSubmit = async (data) => {
     setLoading(true)
     setDisabledBtn(true)
@@ -126,6 +141,13 @@ const RenderForm = (data) => {
           accessToken: process.env.GATSBY_CLOUDOFERTAS_SITE_KEY
         }
       }
+
+      // Define the variables
+      var gclid = getCookie('gclid');
+      var utm_source = getCookie('utm_source');
+
+      if(gclid) data.gclid = gclid
+      if(utm_source) data.utm_source = utm_source
 
       if (formData.has_rdstation && queryString) {
         const jsonUTM = {}
@@ -191,7 +213,14 @@ const RenderForm = (data) => {
       onSubmit(data)
     })} className={`${containerStyle}`}>
       <div>
-        <input type='hidden' id="zc_gad" name="zc_gad" value=""/>
+        {/* <input
+          id="zc_gad"
+          name="zc_gad"
+          type="hidden"
+          placeholder="zc_gad"
+          className=""
+          {...register("zc_gad", { required: false })}
+        /> */}
         {filterData &&
           filterData.map((group, index) => {
             return (
